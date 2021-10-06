@@ -6,7 +6,7 @@
 
 **App Description:** TBD
 
-[**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit)
+[**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit?usp=sharing&ouid=111976597639411429920&rtpof=true&sd=true)
 
 **Calendar**
 
