@@ -1,12 +1,12 @@
 # cs389f2021team1
 
-**App name**
+**App Name:** CorpoRate
 
-**Team** 
+**Team:** [Prince](https://github.com/ppaul895), [Sean](https://github.com/SeanAres), [Geetanjali](https://github.com/gkanojia), & [Cameron](https://github.com/cs05178n) (Team 1)
 
-**App description**
+**App Description:** TBD
 
-**Idea Proposal**
+[**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit)
 
 **Calendar**
 
@@ -21,23 +21,23 @@
 * Sprint planning
 * Scrums
 * Sprint demo - video and apk (or equivalent)
-* Spring retrospective
+* Sprint retrospective
 
 **Sprint 2**
 
 * Sprint planning
 * Scrums
 * Sprint demo - video and apk (or equivalent)
-* Spring retrospective
+* Sprint retrospective
 
 **Sprint 3** 
 
 * Sprint planning
 * Scrums
 * Sprint demo - video and apk (or equivalent)
-* Spring retrospective
+* Sprint retrospective
 
-**Final presentation**
+**Final Presentation**
 
 **Poster**
 
