@@ -4,7 +4,7 @@
 
 **Team:** [Prince](https://github.com/ppaul895), [Sean](https://github.com/SeanAres), [Geetanjali](https://github.com/gkanojia), & [Cameron](https://github.com/cs05178n) (Team 1)
 
-**App Description:** TBD
+**App Description:** Our app aims to hold companies responsible and ensure people have a transparent view of how they operate. Users can anonymously rate companies based on various metrics (like environmental sustainability and working conditions) and give a brief synopsis of their experience with them. Then users can look at average ratings and reviews to gain insight into the culture of a company and decide if it's one they wish to work with or support.
 
 [**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit?usp=sharing&ouid=111976597639411429920&rtpof=true&sd=true)
 
