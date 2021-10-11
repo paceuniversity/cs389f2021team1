@@ -8,9 +8,9 @@
 
 [**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit?usp=sharing&ouid=111976597639411429920&rtpof=true&sd=true)
 
-**Calendar**
+[**Calendar**](https://calendar.google.com/calendar/u/0/r?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
 
-**Product Backlog**
+[**Product Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit?usp=sharing)
 
 **Architecture & Design**
 
