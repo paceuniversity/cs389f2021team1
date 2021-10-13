@@ -1,4 +1,4 @@
-# cs389f2021team1
+# CS3892021Team1
 
 **App Name:** CorpoRate
 
