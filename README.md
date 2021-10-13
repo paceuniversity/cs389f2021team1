@@ -1,4 +1,5 @@
 # CS3892021Team1
+![](https://imgur.com/e39tO03.png)
 
 **App Name:** CorpoRate
 
