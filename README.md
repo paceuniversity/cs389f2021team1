@@ -27,7 +27,11 @@
 
 [**Product Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit?usp=sharing)
 
+[**Requirements Validation**](https://docs.google.com/spreadsheets/d/1ZTlLndmRvSVqlv5ohX0Do5avGZMg_DbO2lxBTQT2x6Q/edit?usp=sharing)
+
 # Architecture & Design
+
+[**Architecture & Design Diagrams**](https://docs.google.com/document/d/1LxBJPjtQ2-6nTjlZCX6ioACTD6lZC4W1dkg3Y_D82IY/edit?usp=sharing)
 
 # Content
 
