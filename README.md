@@ -37,8 +37,19 @@
 
 # Sprint 1
 
+| User Story (9)| Name         |
+| ------------- | -------------|
+| US 1          | Usability    |
+| US 4          | Storage      |
+| US 5          | Portability  |
+| US 6          | Localization | 
+| US 15         | About Page   |
+| US 19         | Database     |
+| US 20         | Login        | 
+| US 22         | Registration |
+| US 23         | Sign Out     |
+
 * [**Sprint Planning**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
-  * 9 User stories to implement (1, 4, 5, 6, 15, 19, 20, 22, and 23)
 * Scrums
 * Sprint Demo
 * APK
