@@ -37,7 +37,8 @@
 
 # Sprint 1
 
-* Sprint Planning
+* [**Sprint Planning**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
+  * 9 User stories to implement (1, 4, 5, 6, 15, 19, 20, 22, and 23)
 * Scrums
 * Sprint Demo
 * APK
