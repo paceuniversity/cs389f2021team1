@@ -1,14 +1,13 @@
 package com.example.corporate;
+
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import com.google.firebase.firestore.FirebaseFirestore;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SearchView search;
 
     @Override
@@ -25,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-  
     public void openSearchResults(){
         Intent intent = new Intent(this, searchActivity.class);
         startActivity(intent);
