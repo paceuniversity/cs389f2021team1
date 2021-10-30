@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CorpoRate</string>
+    <string name="button_send">SEARCH</string>
+    <string name="company_name">company_name</string>
+    <string name="search_company">Company Name</string>
+
 </resources>
