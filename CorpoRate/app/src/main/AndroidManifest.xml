@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CorpoRate">
         <activity
+            android:name=".aboutActivity"
+            android:exported="true" />
+        <activity
             android:name=".searchActivity"
             android:exported="true" />
         <activity

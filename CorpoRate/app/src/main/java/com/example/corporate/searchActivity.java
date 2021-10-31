@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,13 +18,13 @@ import java.util.Map;
 public class searchActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "searchActivity";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_LOCATION = "location";
+    private static final String KEY_NAME = "content";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        this.setTitle("Search");
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -35,18 +36,28 @@ public class searchActivity extends AppCompatActivity {
     }
 
     public void search(View view) {
-        String name = "Apple";
-        String location = "San Fransisco";
 
-        Map<String, Object> company = new HashMap<>();
-        company.put(KEY_NAME, name);
-        company.put(KEY_LOCATION, location);
+    }
 
-        db.collection("Companies").document("My first company").set(company)
+    public void addSuggestion(View view) {
+        EditText suggestionEditText = (EditText)findViewById(R.id.suggestField);
+        String suggestionContent = suggestionEditText.getText().toString();
+
+        if (suggestionContent.isEmpty()) {
+            Toast.makeText(searchActivity.this, "You did not write a suggestion!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Create a suggestion to be added
+        Map<String, Object> suggestion = new HashMap<>();
+        suggestion.put(KEY_NAME, suggestionContent);
+
+        // Add suggestion to the database
+        db.collection("Suggestions").document().set(suggestion)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(searchActivity.this, "Company saved", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(searchActivity.this, "Suggestion submitted!", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -56,5 +67,8 @@ public class searchActivity extends AppCompatActivity {
                         Log.d(TAG, e.toString());
                     }
                 });
+
+        // Clear the user's suggestion text from the EditText field
+        suggestionEditText.getText().clear();
     }
 }
