@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.setTitle("Home");
     }
 
     /** Called when the user taps the Search button */
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
         EditText searchField = (EditText) findViewById(R.id.searchField);
         String searchQuery = searchField.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, searchQuery);
+        startActivity(intent);
+    }
+
+    /** Called when the user taps the About button */
+    public void openAboutPage(View view) {
+        Intent intent = new Intent(this, aboutActivity.class);
         startActivity(intent);
     }
 }
