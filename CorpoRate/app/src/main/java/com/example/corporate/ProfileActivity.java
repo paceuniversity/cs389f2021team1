@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -23,6 +22,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        this.setTitle("Profile");
 
         signOutButton = findViewById(R.id.SignOutButton);
         mAuth = FirebaseAuth.getInstance();
@@ -39,15 +39,19 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topbar,menu);
-        menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.About) {
-            startActivity(new Intent(this, aboutActivity.class));
-            return(true);
+        switch (item.getItemId()) {
+            case R.id.Home:
+                startActivity(new Intent(this, MainActivity.class));
+                return(true);
+            case R.id.About:
+                startActivity(new Intent(this, aboutActivity.class));
+                return(true);
         }
         return super.onOptionsItemSelected(item);
     }
