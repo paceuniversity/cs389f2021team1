@@ -50,7 +50,7 @@
 | US 23         | Sign Out     |
 
 * [**Sprint Planning**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
-* Scrums
+* [**Scrums**](https://docs.google.com/document/d/1Cr5-bGMfO7Y7fAcUWIm6bBFmFAtcvLmH9XWyjzjXThM/edit?usp=sharing)
 * Sprint Demo
 * APK
 * Sprint Retrospective
