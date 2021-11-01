@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topbar,menu);
+        menu.getItem(0).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

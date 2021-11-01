@@ -46,6 +46,9 @@ public class searchActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.Home:
+                startActivity(new Intent(this, MainActivity.class));
+                return(true);
             case R.id.Profile:
                 startActivity(new Intent(this, ProfileActivity.class));
                 return(true);

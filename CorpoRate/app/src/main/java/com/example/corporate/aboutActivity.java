@@ -31,13 +31,17 @@ public class aboutActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topbar,menu);
-        menu.getItem(1).setVisible(false);
+        menu.getItem(2).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.Profile) {
+        switch (item.getItemId()) {
+            case R.id.Home:
+                startActivity(new Intent(this, MainActivity.class));
+                return(true);
+            case R.id.Profile:
                 startActivity(new Intent(this, ProfileActivity.class));
                 return(true);
         }
