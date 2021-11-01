@@ -15,4 +15,10 @@
         and give a brief synopsis of their experience with them. Then users can look at
         average ratings and reviews to gain insight into the culture of a company and decide
         if it\'s one they wish to work with or support.</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="not_registered_yet">Not registered yet?</string>
+    <string name="register">Register</string>
+    <string name="already_have_an_account">Already have an account?</string>
 </resources>
