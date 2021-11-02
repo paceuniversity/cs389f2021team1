@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/vKnBdgZ.png)](https://github.com/paceuniversity/cs389f2021team1)
+[![](https://i.imgur.com/u0fF7Iu.png)](https://github.com/paceuniversity/cs389f2021team1)
 
 # Team 1
 
@@ -6,10 +6,10 @@
 
 | Name                                      | Contact Info      | Primary Role    |
 | ----------------------------------------- | ----------------- | --------------- |
-| [Prince](https://github.com/ppaul895)     | pp82735p@pace.edu | Scrum Master    |
-| [Sean](https://github.com/SeanAres)       | sc65967p@pace.edu | Product Owner   |
-| [Geetanjali](https://github.com/gkanojia) | gk72727p@pace.edu | Content Manager |
-| [Cameron](https://github.com/cs05178n)    | cs05178n@pace.edu | Developer       |
+| [Sean Cesario](https://github.com/SeanAres)       | sc65967p@pace.edu | Product Owner   |
+| [Prince Paul](https://github.com/ppaul895)     | pp82735p@pace.edu | Scrum Master    |
+| [Geetanjali Kanojia](https://github.com/gkanojia) | gk72727p@pace.edu | Content Manager |
+| [Cameron Sweeney](https://github.com/cs05178n)    | cs05178n@pace.edu | Developer       |
 
 # App Information
 
@@ -37,19 +37,7 @@
 
 # Sprint 1
 
-| User Story (9)| Name         |
-| ------------- | -------------|
-| US 1          | Usability    |
-| US 4          | Storage      |
-| US 5          | Portability  |
-| US 6          | Localization | 
-| US 15         | About Page   |
-| US 19         | Database     |
-| US 20         | Login        | 
-| US 22         | Registration |
-| US 23         | Sign Out     |
-
-* [**Sprint Planning**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
+* [**Sprint Planning**](https://docs.google.com/document/d/1Q1YodB-1Iwy32TYaIk_mlYrDO7PNkyKYfQ0PbZFq010/edit?usp=sharing) | [**Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
 * [**Scrums**](https://docs.google.com/document/d/1Cr5-bGMfO7Y7fAcUWIm6bBFmFAtcvLmH9XWyjzjXThM/edit?usp=sharing)
 * Sprint Demo
 * APK
