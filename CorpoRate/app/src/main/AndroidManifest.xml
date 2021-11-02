@@ -30,10 +30,10 @@
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".aboutActivity"
+            android:name=".AboutActivity"
             android:exported="true" />
         <activity
-            android:name=".searchActivity"
+            android:name=".SearchActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

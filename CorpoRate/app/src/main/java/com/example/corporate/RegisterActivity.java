@@ -2,7 +2,6 @@ package com.example.corporate;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -91,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         else if(password.length()<4){
             editTextPassword.setError("Password must be more than 4 characters");
         }
-        else if(!isVallidEmail(email)){
+        else if(!isValidEmail(email)){
             editTextEmail.setError("Enter a valid email");
         }
         else{
@@ -116,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private Boolean isVallidEmail(CharSequence target){
+    private Boolean isValidEmail(CharSequence target){
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }
