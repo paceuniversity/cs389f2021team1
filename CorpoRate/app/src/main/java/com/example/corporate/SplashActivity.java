@@ -8,8 +8,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.airbnb.lottie.LottieAnimationView;
 
-import java.util.Objects;
-
 public class SplashActivity extends AppCompatActivity {
     private static final int SPLASH_SCREEN = 3000;
     ImageView logo;
@@ -20,7 +18,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
         logo = findViewById(R.id.logo);
         appName = findViewById(R.id.appName);
