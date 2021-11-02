@@ -9,6 +9,12 @@
         <item name="colorOnSecondary">@color/Milk</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
-        <!-- Customize your theme here. -->
+        <!-- Overflow Menu icon -->
+        <item name="android:actionOverflowButtonStyle">@style/MyToolbarOverflow</item>
+    </style>
+
+    <!-- Overflow Menu icon -->
+    <style name="MyToolbarOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/menu_icon</item>
     </style>
 </resources>
