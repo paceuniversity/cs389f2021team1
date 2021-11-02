@@ -2,8 +2,10 @@ package com.example.corporate;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -23,10 +25,15 @@ public class MainActivity extends AppCompatActivity {
         this.setTitle("Home");
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topbar,menu);
         menu.getItem(0).setVisible(false);
+        if(menu instanceof MenuBuilder){
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -50,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
         EditText searchField = (EditText) findViewById(R.id.searchField);
         String searchQuery = searchField.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, searchQuery);
-        startActivity(intent);
-    }
-
-    /** Called when the user taps the About button */
-    public void openAboutPage(View view) {
-        Intent intent = new Intent(this, aboutActivity.class);
         startActivity(intent);
     }
 }
