@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +30,10 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private ViewPager slideViewPager;
+    private LinearLayout dotsLayout;
+    private SliderAdapter sliderAdapter;
+    private TextView[] dots;
     private static final String TAG = "aboutActivity";
     private static final String KEY_NAME = "content";
 
@@ -47,7 +55,45 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_about);
+
+        // Slide Viewpager and Dot Layout
+        slideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
+        dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
+        sliderAdapter = new SliderAdapter(this);
+        slideViewPager.setAdapter(sliderAdapter);
+        addDotsIndicator(0);
+        slideViewPager.addOnPageChangeListener(viewListener);
     }
+
+    public void addDotsIndicator(int position) {
+        dots = new TextView[3];
+        dotsLayout.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(this);
+            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setTextSize(35);
+            dots[i].setTextColor(getResources().getColor(R.color.TransparentLightGray));
+            dotsLayout.addView(dots[i]);
+        }
+        if(dots.length > 0) {
+            dots[position].setTextColor(getResources().getColor(R.color.Milk));
+        }
+    }
+
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            addDotsIndicator(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+    };
 
     public void addReport(View view) {
         EditText reportEditText = (EditText)findViewById(R.id.reportField);
