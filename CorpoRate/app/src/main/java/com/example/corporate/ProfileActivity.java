@@ -8,25 +8,82 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private Button signOutButton;
+    private Button updateButton;
     private FirebaseAuth mAuth;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private TextInputEditText name, username, email, password;
+    private TextView headerName, headerUsername, numofReviews, numOfReviewsLabel;
+    private static final String TAG = "profileActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         this.setTitle("Profile");
+
+        // Hooks
+        headerName = findViewById(R.id.name);
+        headerUsername = findViewById(R.id.username);
+        name = findViewById(R.id.profileName);
+        username = findViewById(R.id.profileUsername);
+        email = findViewById(R.id.profileEmail);
+        password = findViewById(R.id.profilePassword);
+        numofReviews = findViewById(R.id.numOfReviews);
+        numOfReviewsLabel = findViewById(R.id.numOfReviewsLabel);
+
+        // Show All User Data
+        DocumentReference docRef = db.collection("Users")
+                .document((Objects.requireNonNull(auth.getCurrentUser()).getUid()));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        headerName.setText(document.getString("name"));
+                        headerUsername.setText(document.getString("username"));
+                        name.setText(document.getString("name"));
+                        username.setText(document.getString("username"));
+                        email.setText(auth.getCurrentUser().getEmail());
+                        String passwordLength = new String(new char[Objects.requireNonNull(document.getLong("lengthOfPassword")).intValue()]).replace('\0', ' ');
+                        password.setText(passwordLength);
+                        numofReviews.setText(Objects.requireNonNull(document.get("numOfReviews")).toString());
+                        if (Objects.requireNonNull(document.getLong("numOfReviews")).intValue() == 1) {
+                            numOfReviewsLabel.setText("Review");
+                        }
+                    } else {
+                        Log.d(TAG, "Document does not exist.");
+                    }
+                }
+                else {
+                    Log.d(TAG, "Failed to pull from database.", task.getException());
+                }
+            }
+        });
 
         // Drawer Navigation + Toolbar
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -41,9 +98,40 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
 
+        // Update button handling
+        updateButton = findViewById(R.id.updateButton);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameString = Objects.requireNonNull(name.getText()).toString();
+                String usernameString = Objects.requireNonNull(username.getText()).toString();
+                if (nameString.isEmpty() || usernameString.isEmpty()) {
+                    Toast.makeText(ProfileActivity.this, "Name or Username field(s) cannot be empty!", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.collection("Users").document((Objects.requireNonNull(auth.getCurrentUser()).getUid()))
+                            .update("name", nameString,"username", usernameString)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(ProfileActivity.this, "Profile updated!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ProfileActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, e.toString());
+                                }
+                            });
+                    headerName.setText(nameString);
+                    headerUsername.setText(usernameString);
+                }
+            }
+        });
+
+        // Sign out button handling
         signOutButton = findViewById(R.id.SignOutButton);
         mAuth = FirebaseAuth.getInstance();
-
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

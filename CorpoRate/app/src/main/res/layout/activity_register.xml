@@ -42,11 +42,47 @@
                 android:textSize="30sp" />
 
             <EditText
+                android:id="@+id/editName"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_background"
+                android:textSize="16sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:ems="10"
+                android:hint="Name"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:textColor="@color/MatteCharcoal" />
+
+            <EditText
+                android:id="@+id/editUsername"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_background"
+                android:textSize="16sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:ems="10"
+                android:hint="@string/username"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:textColor="@color/MatteCharcoal" />
+
+            <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_background"
                 android:textSize="16sp"
                 android:paddingStart="15dp"

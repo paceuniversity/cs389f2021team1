@@ -17,24 +17,230 @@
         app:menu="@menu/nav_drawer"
         android:layout_gravity="start"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar"/>
 
-        <Button
-            android:id="@+id/SignOutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/Milk"
-            android:text="Sign Out"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="@+id/toolbar"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="20dp"
+            android:background="@color/Flare">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="5dp"
+                android:background="@drawable/circular_border_background"
+                android:src="@drawable/corporate_logo"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textColor="@color/MatteCharcoal"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false"
+                android:layout_toEndOf="@+id/logo"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp" />
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textColor="@color/MatteCharcoal"
+                android:textSize="16sp"
+                android:includeFontPadding="false"
+                android:layout_below="@+id/name"
+                android:layout_toEndOf="@id/logo"
+                android:layout_marginStart="10dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginTop="-75dp"
+            android:gravity="center">
+            
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="200dp"
+                android:layout_height="125dp"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="@color/MatteCharcoal"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="15dp"
+                android:theme="@style/Theme.MaterialComponents.Light">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/reviewsIcon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/small_reviews_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"/>
+
+                    <TextView
+                        android:id="@+id/numOfReviews"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="0"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/Milk"
+                        android:layout_centerInParent="true" />
+
+                    <TextView
+                        android:id="@+id/numOfReviewsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:text="Reviews"
+                        android:textSize="14sp"
+                        android:textColor="@color/Milk"
+                        android:layout_below="@id/numOfReviews"
+                        android:layout_centerHorizontal="true"/>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:layout_marginBottom="10dp"
+                app:hintTextColor="@color/Flare">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:drawableStart="@drawable/small_name_icon"
+                    android:drawablePadding="10dp"
+                    android:inputType="textNoSuggestions"
+                    android:textCursorDrawable="@null"
+                    android:selectAllOnFocus="true"
+                    android:textColorHighlight="@color/TransparentLightGray"
+                    android:text=""/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:layout_marginBottom="10dp"
+                app:hintTextColor="@color/Flare">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:drawableStart="@drawable/small_username_icon"
+                    android:drawablePadding="10dp"
+                    android:inputType="textNoSuggestions"
+                    android:textCursorDrawable="@null"
+                    android:selectAllOnFocus="true"
+                    android:textColorHighlight="@color/TransparentLightGray"
+                    android:text="" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:layout_marginBottom="10dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:enabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/small_email_icon"
+                    android:drawablePadding="10dp"
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:layout_marginBottom="10dp"
+                android:enabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profilePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/small_password_icon"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPassword"
+                    android:text=""
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/updateButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:textColor="@color/Milk"
+                    android:text="Update"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/SignOutButton"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <Button
+                    android:id="@+id/SignOutButton"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_background"
+                    android:textColor="@color/Milk"
+                    android:text="Sign Out"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@id/updateButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -18,14 +18,20 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "RegisterActivity";
-    private EditText editTextEmail, editTextPassword;
+    private EditText editTextName, editTextUsername, editTextEmail, editTextPassword;
     private TextView loginClick;
     private Button button_register;
     private FirebaseAuth mAuth;
@@ -38,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         button_register = findViewById(R.id.buttonRegister);
         loginClick = findViewById(R.id.loginClick);
+        editTextName = findViewById(R.id.editName);
+        editTextUsername = findViewById(R.id.editUsername);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         progress = findViewById(R.id.registerProgress);
@@ -70,8 +78,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createAccount(View view) {
+        String name = editTextName.getText().toString();
+        String username = editTextUsername.getText().toString();
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
+        int lengthOfPassword = editTextPassword.getText().toString().length();
 
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -80,7 +91,13 @@ public class RegisterActivity extends AppCompatActivity {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
-        if(TextUtils.isEmpty(email)){
+        if(TextUtils.isEmpty(name)){
+            editTextName.setError("Enter your name");
+        }
+        else if(TextUtils.isEmpty(username)){
+            editTextUsername.setError("Enter your username");
+        }
+        else if(TextUtils.isEmpty(email)){
             editTextEmail.setError("Enter your email");
         }
         else if(TextUtils.isEmpty(password)){
@@ -101,6 +118,28 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+
+                                // Create a new user to be added to the database
+                                Map<String, Object> newUser = new HashMap<>();
+                                newUser.put("name", name);
+                                newUser.put("username", username);
+                                newUser.put("lengthOfPassword", lengthOfPassword);
+                                newUser.put("numOfReviews", 0);
+
+                                // Add the new user to the database
+                                db.collection("Users").document(user.getUid()).set(newUser)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "New user added to database");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d(TAG, e.toString());
+                                            }
+                                        });
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                 finish();
                             } else {
