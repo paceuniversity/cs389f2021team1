@@ -41,8 +41,7 @@
 * [**Scrums**](https://docs.google.com/document/d/1Cr5-bGMfO7Y7fAcUWIm6bBFmFAtcvLmH9XWyjzjXThM/edit?usp=sharing)
 * Sprint Demo
 * APK
-* Sprint Retrospective
-
+* [**Sprint Retrospective**](https://docs.google.com/document/d/1pKKuMqxwUwLb5huFpagkgW5Bw_dS0F4NEiM0uAYaCUQ/edit?usp=sharing)
 # Sprint 2
 
 * Sprint Planning
