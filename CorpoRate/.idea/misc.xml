@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.346875" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/bg_rounded.xml" value="0.346875" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/button_background.xml" value="0.3388888888888889" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/edit_text_background.xml" value="0.3388888888888889" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.346875" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/about_slide_layout.xml" value="0.34629629629629627" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_about.xml" value="0.33177083333333335" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_login.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_profile.xml" value="0.33125" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_register.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_splash.xml" value="0.3314814814814815" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/header.xml" value="0.35" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/toolbar.xml" value="0.35" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/menu/nav_drawer.xml" value="0.1" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/menu/topbar.xml" value="0.3302083333333333" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/mipmap-anydpi-v26/corporatelogo.xml" value="0.3453125" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1287037037037037" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/CorpRateLogo_background.xml" value="0.4430769230769231" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.4430769230769231" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_about.xml" value="0.2773556231003039" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_login.xml" value="0.2773556231003039" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_main.xml" value="0.2773556231003039" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_profile.xml" value="0.16641337386018237" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_register.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search.xml" value="0.2773556231003039" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/menu/topbar.xml" value="0.21296296296296297" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/mipmap-anydpi-v26/CorpRateLogo.xml" value="0.4430769230769231" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1287037037037037" />
+        <entry key="..\:/Users/vansh/Desktop/projectSE/cs389f2021team1/CorpoRate/app/src/main/res/drawable/bg_rounded.xml" value="0.36875" />
+        <entry key="..\:/Users/vansh/Desktop/projectSE/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_main.xml" value="0.3344594594594595" />
+        <entry key="..\:/Users/vansh/Desktop/projectSE/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search.xml" value="0.3484375" />
+        <entry key="..\:/Users/vansh/Desktop/projectSE/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search_result.xml" value="0.35260416666666666" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
