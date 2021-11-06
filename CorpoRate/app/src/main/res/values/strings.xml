@@ -6,19 +6,13 @@
     <string name="submitButtonText">Submit</string>
     <string name="reportFieldText">Report an issue here…</string>
     <string name="suggestFieldHint">Suggest a company here…</string>
-    <string name="aboutText">
-        Developer Info: \n \nSean Cesario: sc65967p@pace.edu \nPrince Paul: pp82735p@pace.edu
-        \nGeetanjali Kanojia: gk72727p@pace.edu \nCameron Sweeney: cs05178n@pace.edu \n
-        \nMission Statement:  \n \nOur app aims to hold companies responsible and ensure people
-        have a transparent view of how they operate. Users can anonymously rate companies
-        based on various metrics (like environmental sustainability and working conditions)
-        and give a brief synopsis of their experience with them. Then users can look at
-        average ratings and reviews to gain insight into the culture of a company and decide
-        if it\'s one they wish to work with or support.</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="not_registered_yet">Not registered yet?</string>
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name ="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name ="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="username">Username</string>
 </resources>
