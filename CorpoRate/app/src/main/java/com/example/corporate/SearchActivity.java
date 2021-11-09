@@ -21,14 +21,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private static final String TAG = "searchActivity";
-    private static final String KEY_NAME = "content";
+    private static final String KEY_NAME_CONTENT= "content";
+    private static final String KEY_NAME_UID = "uid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,8 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
 
         // Create a suggestion to be added
         Map<String, Object> suggestion = new HashMap<>();
-        suggestion.put(KEY_NAME, suggestionContent);
+        suggestion.put(KEY_NAME_CONTENT, suggestionContent);
+        suggestion.put(KEY_NAME_UID, Objects.requireNonNull(auth.getCurrentUser()).getUid());
 
         // Add suggestion to the database
         db.collection("Suggestions").document().set(suggestion)
