@@ -7,4 +7,13 @@
         <item name="colorAccent">@color/Milk</item>
         <item name="android:statusBarColor">@color/Flare</item>
     </style>
+
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/Flare</item>
+        <item name="colorSwitchThumbNormal">@color/MatteCharcoal</item>
+    </style>
+
+    <style name="Color1EditTextStyle">
+        <item name="colorControlActivated">@color/Flare</item>
+    </style>
 </resources>
