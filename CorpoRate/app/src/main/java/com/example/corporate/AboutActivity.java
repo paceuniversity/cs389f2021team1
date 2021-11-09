@@ -24,8 +24,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -35,7 +37,8 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
     private SliderAdapter sliderAdapter;
     private TextView[] dots;
     private static final String TAG = "aboutActivity";
-    private static final String KEY_NAME = "content";
+    private static final String KEY_NAME_CONTENT= "content";
+    private static final String KEY_NAME_UID = "uid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +109,9 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
 
         // Create a report to be added
         Map<String, Object> report = new HashMap<>();
-        report.put(KEY_NAME, reportContent);
+
+        report.put(KEY_NAME_CONTENT, reportContent);
+        report.put(KEY_NAME_UID, Objects.requireNonNull(auth.getCurrentUser()).getUid());
 
         // Add report to the database
         db.collection("Reports").document().set(report)

@@ -128,14 +128,16 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/anonymousSwitch"
-            android:layout_width="145dp"
+            android:drawableStart="@drawable/small_anonymous_icon"
+            android:drawablePadding="3dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             app:switchMinWidth="60dp"
             android:layout_gravity="center"
             android:shadowColor="@color/Flare"
             android:text="Anonymous"
             android:textColor="@color/MatteCharcoal"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:theme="@style/Color1SwitchStyle"/>
 
         <LinearLayout
