@@ -3,6 +3,7 @@ package com.example.corporate;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -31,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private Button signOutButton;
     private Button updateButton;
+    private SwitchCompat anonymousSwitch;
     private FirebaseAuth mAuth;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -97,6 +99,35 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_profile);
+
+        // Anonymous switch handling
+        anonymousSwitch = findViewById(R.id.anonymousSwitch);
+        anonymousSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isChecked = anonymousSwitch.isChecked();
+
+                db.collection("Users").document((Objects.requireNonNull(auth.getCurrentUser()).getUid()))
+                        .update("anonymous", isChecked)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                if(isChecked)
+                                    Toast.makeText(ProfileActivity.this, "You are now anonymous!", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(ProfileActivity.this, "You are now public", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ProfileActivity.this, "Error!", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, e.toString());
+                            }
+                        });
+
+            }
+        });
 
         // Update button handling
         updateButton = findViewById(R.id.updateButton);

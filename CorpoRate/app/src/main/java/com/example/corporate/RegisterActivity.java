@@ -125,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 newUser.put("username", username);
                                 newUser.put("lengthOfPassword", lengthOfPassword);
                                 newUser.put("numOfReviews", 0);
+                                newUser.put("anonymous", false);
 
                                 // Add the new user to the database
                                 db.collection("Users").document(user.getUid()).set(newUser)
