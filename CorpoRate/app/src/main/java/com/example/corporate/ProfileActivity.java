@@ -56,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         password = findViewById(R.id.profilePassword);
         numofReviews = findViewById(R.id.numOfReviews);
         numOfReviewsLabel = findViewById(R.id.numOfReviewsLabel);
+        anonymousSwitch = findViewById(R.id.anonymousSwitch);
 
         // Show All User Data
         DocumentReference docRef = db.collection("Users")
@@ -76,6 +77,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                         numofReviews.setText(Objects.requireNonNull(document.get("numOfReviews")).toString());
                         if (Objects.requireNonNull(document.getLong("numOfReviews")).intValue() == 1) {
                             numOfReviewsLabel.setText("Review");
+                        }
+
+                        if(Objects.requireNonNull(document.getBoolean("anonymous"))){
+                            anonymousSwitch.setChecked(true);
                         }
                     } else {
                         Log.d(TAG, "Document does not exist.");
@@ -101,7 +106,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         navigationView.setCheckedItem(R.id.nav_profile);
 
         // Anonymous switch handling
-        anonymousSwitch = findViewById(R.id.anonymousSwitch);
         anonymousSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
