@@ -44,7 +44,7 @@
 * [**Sprint Retrospective**](https://docs.google.com/document/d/1pKKuMqxwUwLb5huFpagkgW5Bw_dS0F4NEiM0uAYaCUQ/edit?usp=sharing)
 # Sprint 2
 
-* Sprint Planning
+* [**Sprint Planning**](https://docs.google.com/document/d/1I5m1hvcUh5hczLTZ3LkKLyX0EbEdgjIDUC1Cmnl8m6g/edit?usp=sharing) | [**Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=2050227394)
 * Scrums
 * Sprint Demo
 * APK
