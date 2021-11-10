@@ -143,7 +143,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="5dp"
             android:paddingBottom="20dp"
@@ -237,8 +237,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp">
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom">
 
                 <Button
                     android:id="@+id/updateButton"
