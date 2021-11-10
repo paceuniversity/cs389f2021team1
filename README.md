@@ -39,8 +39,8 @@
 
 * [**Sprint Planning**](https://docs.google.com/document/d/1Q1YodB-1Iwy32TYaIk_mlYrDO7PNkyKYfQ0PbZFq010/edit?usp=sharing) | [**Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=98845812)
 * [**Scrums**](https://docs.google.com/document/d/1Cr5-bGMfO7Y7fAcUWIm6bBFmFAtcvLmH9XWyjzjXThM/edit?usp=sharing)
-* Sprint Demo
-* APK
+* [**Sprint Demo**](https://www.youtube.com/watch?v=JD4ID6gRR98)
+* [**APK**](https://drive.google.com/file/d/11cWQL69lY9b4fb2xB4h4jGDf-0EY0_2j/view?usp=sharing)
 * [**Sprint Retrospective**](https://docs.google.com/document/d/1pKKuMqxwUwLb5huFpagkgW5Bw_dS0F4NEiM0uAYaCUQ/edit?usp=sharing)
 # Sprint 2
 
