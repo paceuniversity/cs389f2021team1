@@ -61,5 +61,62 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/searchField" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0FFFFFFF"
+            android:fillViewport="true"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="150dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:background="@color/Flare"
+                    android:textColor="@color/Milk"
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Button One" />
+
+                <Button
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/Flare"
+                    android:backgroundTint="@color/Flare"
+                    android:text="Button Two"
+                    android:textColor="@color/Milk" />
+
+                <Button
+                    android:background="@color/Flare"
+                    android:textColor="@color/Milk"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:text="Button Three" />
+
+                <Button
+                    android:background="@color/Flare"
+                    android:textColor="@color/Milk"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:text="Button Four" />
+
+                <Button
+                    android:background="@color/Flare"
+                    android:textColor="@color/Milk"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="210dp"
+                    android:layout_height="70dp"
+                    android:text="Button Five" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
