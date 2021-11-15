@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 break;
             case R.id.nav_my_reviews:
+                //temp
+                startActivity(new Intent(MainActivity.this, CompanyActivity.class));
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));

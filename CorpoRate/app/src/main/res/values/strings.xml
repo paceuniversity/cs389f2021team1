@@ -12,7 +12,7 @@
     <string name="not_registered_yet">Not registered yet?</string>
     <string name="register">Register</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name ="navigation_drawer_open">Open Navigation Drawer</string>
-    <string name ="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="username">Username</string>
 </resources>
