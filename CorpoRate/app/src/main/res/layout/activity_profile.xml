@@ -99,7 +99,7 @@
                         android:layout_height="30dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/small_reviews_icon"/>
+                        android:src="@drawable/small_reviews_icon" />
 
                     <TextView
                         android:id="@+id/numOfReviews"

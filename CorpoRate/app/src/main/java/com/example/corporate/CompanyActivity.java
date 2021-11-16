@@ -10,13 +10,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.animation.LayoutTransition;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -48,6 +52,13 @@ public class CompanyActivity extends AppCompatActivity {
     private TextView companyName;
     private TextView companyLocation;
     private RatingBar avgRating;
+    private RatingBar avgEthics;
+    private RatingBar avgEnvironmental;
+    private RatingBar avgLeadership;
+    private RatingBar avgWageEquality;
+    private RatingBar avgWorkingConditions;
+    private TextView totalReviews;
+    private LinearLayout ratingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,13 @@ public class CompanyActivity extends AppCompatActivity {
         companyName = findViewById(R.id.companyName);
         companyLocation = findViewById(R.id.companyLocation);
         avgRating = findViewById(R.id.overallRating);
+        avgEthics = findViewById(R.id.EthicsRating);
+        avgEnvironmental = findViewById(R.id.EnvironmentalRating);
+        avgLeadership = findViewById(R.id.LeadershipRating);
+        avgWageEquality = findViewById(R.id.WageEqualityRating);
+        avgWorkingConditions = findViewById(R.id.WorkingConditionsRating);
+        totalReviews = findViewById(R.id.totalCompanyReviews);
+        ratingLayout = findViewById(R.id.companyRatingDetails);
 
         // Drawer Navigation + Toolbar
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -85,7 +103,12 @@ public class CompanyActivity extends AppCompatActivity {
                         companyName.setText(document.getId());
                         companyLocation.setText(document.getString("location"));
                         avgRating.setRating(Objects.requireNonNull(document.getLong("avgRating")).floatValue());
-
+                        avgEthics.setRating(Objects.requireNonNull(document.getLong("avgEthics")).floatValue());
+                        avgEnvironmental.setRating(Objects.requireNonNull(document.getLong("avgEnvironmental")).floatValue());
+                        avgLeadership.setRating(Objects.requireNonNull(document.getLong("avgLeadership")).floatValue());
+                        avgWageEquality.setRating(Objects.requireNonNull(document.getLong("avgWageEquality")).floatValue());
+                        avgWorkingConditions.setRating(Objects.requireNonNull(document.getLong("avgWorkingConditions")).floatValue());
+                        totalReviews.setText(document.getLong("numOfReviews").toString());
                     } else {
                         Log.d(TAG, "Document does not exist.");
                     }
@@ -122,5 +145,15 @@ public class CompanyActivity extends AppCompatActivity {
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void expandCard(View view) {
+        if (ratingLayout.getVisibility() == View.GONE) {
+            TransitionManager.beginDelayedTransition(ratingLayout, new AutoTransition());
+            ratingLayout.setVisibility(View.VISIBLE);
+        }else {
+            TransitionManager.beginDelayedTransition(ratingLayout, new AutoTransition());
+            ratingLayout.setVisibility(View.GONE);
+        }
     }
 }
