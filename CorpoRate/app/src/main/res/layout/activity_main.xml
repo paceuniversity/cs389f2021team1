@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
- <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -8,6 +8,7 @@
     tools:context=".MainActivity"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
@@ -34,14 +35,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/edit_text_background"
-            android:textSize="16sp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:ems="10"
             android:hint="@string/searchFieldHint"
             android:inputType="textPersonName"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/searchButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,19 +55,38 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/button_background"
-            android:textColor="@color/Milk"
             android:onClick="openSearchResults"
             android:text="@string/searchButtonText"
+            android:textColor="@color/Milk"
             app:layout_constraintBaseline_toBaselineOf="@+id/searchField"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/searchField" />
 
+        <TextView
+            android:id="@+id/topThree"
+            android:layout_width="372dp"
+            android:layout_height="41dp"
+            android:text="Top Three Companies"
+
+            android:textAllCaps="true"
+            android:textColor="@color/MatteCharcoal"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.107" />
+
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#0FFFFFFF"
             android:fillViewport="true"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="31dp"
             tools:ignore="MissingConstraints">
 
             <LinearLayout
@@ -75,48 +95,121 @@
                 android:layout_marginTop="150dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:background="@color/Flare"
-                    android:textColor="@color/Milk"
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Button One" />
+                    android:background="@drawable/apple"
+                    android:text="Picture"
+                    android:textColor="@color/Milk" />
 
                 <Button
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@color/Flare"
-                    android:backgroundTint="@color/Flare"
+                    android:background="@drawable/layout_hs"
+                    android:text="Apple"
+                    android:textColor="@color/Milk" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/layout_hs"
                     android:text="Button Two"
                     android:textColor="@color/Milk" />
 
                 <Button
-                    android:background="@color/Flare"
-                    android:textColor="@color/Milk"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
-                    android:text="Button Three" />
+                    android:background="@drawable/layout_hs"
+                    android:text="Button Three"
+                    android:textColor="@color/Milk" />
 
                 <Button
-                    android:background="@color/Flare"
-                    android:textColor="@color/Milk"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
-                    android:text="Button Four" />
+                    android:background="@drawable/layout_hs"
+                    android:text="Button Four"
+                    android:textColor="@color/Milk" />
 
                 <Button
-                    android:background="@color/Flare"
-                    android:textColor="@color/Milk"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
-                    android:text="Button Five" />
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/layout_hs"
+                    android:text="Button Five"
+                    android:textColor="@color/Milk" />
             </LinearLayout>
         </HorizontalScrollView>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="376dp"
+            android:layout_height="421dp"
+            android:background="@drawable/layout_hs"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView4" />
+
+        <TextView
+            android:layout_width="184dp"
+            android:layout_height="47dp"
+            android:text="WELCOME"
+            android:textColor="@color/Milk"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view3"
+            app:layout_constraintVertical_bias="0.05" />
+
+        <TextView
+            android:id="@+id/displayName"
+            android:layout_width="332dp"
+            android:layout_height="32dp"
+            android:text="TextView"
+            android:textColor="@color/Milk"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view3"
+            app:layout_constraintVertical_bias="0.159" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="381dp"
+            android:layout_height="321dp"
+            android:background="@drawable/home_view"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.555"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/displayName"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/my_rev"
+            android:layout_width="197dp"
+            android:layout_height="38dp"
+            android:text="MY REVIEWS"
+            android:textColor="@color/Milk"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.147"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/displayName"
+            app:layout_constraintVertical_bias="0.058" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
