@@ -19,7 +19,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <include
             android:id="@+id/toolbar"
@@ -40,6 +42,8 @@
             android:ems="10"
             android:hint="@string/searchFieldHint"
             android:inputType="textPersonName"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@null"
             app:layout_constraintEnd_toStartOf="@+id/searchButton2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,6 +64,17 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/searchField2" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResults"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:scrollbars="vertical"
+            app:layout_constraintTop_toBottomOf="@id/searchField2"
+            app:layout_constraintBottom_toTopOf="@id/suggestField">
+        </androidx.recyclerview.widget.RecyclerView>
+
         <EditText
             android:id="@+id/suggestField"
             android:layout_width="0dp"
@@ -74,6 +89,8 @@
             android:ems="10"
             android:hint="@string/suggestFieldHint"
             android:inputType="textPersonName"
+            android:cursorVisible="true"
+            android:textCursorDrawable="@null"
             app:layout_constraintBottom_toBottomOf="@+id/suggestButton"
             app:layout_constraintEnd_toStartOf="@+id/suggestButton"
             app:layout_constraintHorizontal_bias="0.5"

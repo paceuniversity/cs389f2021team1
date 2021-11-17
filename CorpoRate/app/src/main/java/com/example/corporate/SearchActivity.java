@@ -6,19 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,6 +35,11 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
+    private TextView searchField;
+    private Button searchButton;
+    private RecyclerView results;
+    private CollectionReference companyRef = db.collection("Companies");
+    private CompanyAdapter adapter;
     private static final String TAG = "searchActivity";
     private static final String KEY_NAME_CONTENT= "content";
     private static final String KEY_NAME_UID = "uid";
@@ -52,19 +63,50 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_search);
 
-        // Get the Intent that started this activity and extract the string
+        // Hooks
+        searchField = findViewById(R.id.searchField2);
+        searchButton = findViewById(R.id.searchButton2);
+        results = findViewById(R.id.searchResults);
+
+        // Update search field from home page
         Intent intent = getIntent();
         String searchQuery = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        searchField.setText(searchQuery);
 
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.searchField2);
-        textView.setText(searchQuery);
+        setUpRecyclerView();
     }
 
-    public void search(View view) {
+    public void setUpRecyclerView() {
+        Query query = companyRef.orderBy("name");
 
+        FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
+                .setQuery(query, Company.class)
+                .build();
+
+        adapter = new CompanyAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.searchResults);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    public void search() {
+    }
+
+    /** Suggestion Handling */
     public void addSuggestion(View view) {
         EditText suggestionEditText = (EditText)findViewById(R.id.suggestField);
         String suggestionContent = suggestionEditText.getText().toString();
