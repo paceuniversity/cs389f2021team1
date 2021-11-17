@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(R.id.nav_home);
 
 
-        username1 = findViewById(R.id.displayName);
+       username1 = findViewById(R.id.displayName);
 
 
         DocumentReference docRef = db.collection("Users")
@@ -81,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String name = auth.getCurrentUser().getEmail();
         //String name = Objects.requireNonNull(auth.getCurrentUser()).getUid().toString();
         username1.setText(name);
+
+
+
+
+
 
 
 
