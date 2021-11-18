@@ -1,53 +1,42 @@
 package com.example.corporate;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.annotation.SuppressLint;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.firestore.Query;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private TextView username1;
-    private TextInputEditText name, username, email, password;
-    private TextView headerName, headerUsername, numofReviews, numOfReviewsLabel;
-    private SwitchCompat anonymousSwitch;
+    private TextView displayName;
+    private RecyclerView topThreeCompanies;
+    private CollectionReference companyRef = db.collection("Companies");
+    private CompanyAdapter adapter;
     private static final String TAG = "mainActivity";
-
     public static final String EXTRA_MESSAGE = "com.example.corporate.MESSAGE";
 
     @Override
@@ -70,28 +59,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_home);
 
-
-       username1 = findViewById(R.id.displayName);
-
-
+        // Displays user's name under welcome banner
+        displayName = findViewById(R.id.displayName);
         DocumentReference docRef = db.collection("Users")
                 .document((Objects.requireNonNull(auth.getCurrentUser()).getUid()));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                displayName.setText(document.getString("name"));
+            }
+        });
 
-
-        String name = auth.getCurrentUser().getEmail();
-        //String name = Objects.requireNonNull(auth.getCurrentUser()).getUid().toString();
-        username1.setText(name);
-
-
-
-
-
-
-
-
-
+        // Handles the top three companies RecyclerView
+        topThreeCompanies = findViewById(R.id.topThreeRecyclerView);
+        setUpRecyclerView();
     }
 
+    /** Sets up the Recycler View */
+    public void setUpRecyclerView() {
+        Query query = companyRef.orderBy("numOfReviews", Query.Direction.DESCENDING).limit(3);
+
+        FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
+                .setQuery(query, Company.class)
+                .build();
+
+        adapter = new CompanyAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.topThreeRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
 
     /** Called when the user taps the Search button */
     public void openSearchResults(View view) {
