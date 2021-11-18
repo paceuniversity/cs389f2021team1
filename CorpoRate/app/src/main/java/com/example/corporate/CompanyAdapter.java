@@ -38,7 +38,7 @@ public class CompanyAdapter extends FirestoreRecyclerAdapter<Company, CompanyAda
     @NonNull
     @Override
     public CompanyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.company_layout,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.company_card,
                 parent, false);
         return new CompanyHolder(v);
     }

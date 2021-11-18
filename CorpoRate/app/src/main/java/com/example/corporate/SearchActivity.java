@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView searchField;
-    private Button searchButton;
+    private Button resetButton;
     private RecyclerView results;
     private CollectionReference companyRef = db.collection("Companies");
     private CompanyAdapter adapter;
@@ -65,30 +67,61 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
 
         // Hooks
         searchField = findViewById(R.id.searchField2);
-        searchButton = findViewById(R.id.searchButton2);
+        resetButton = findViewById(R.id.resetButton);
         results = findViewById(R.id.searchResults);
 
         // Update search field from home page
         Intent intent = getIntent();
         String searchQuery = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         searchField.setText(searchQuery);
+        if (searchQuery != null && searchQuery.isEmpty()) {
+            updateRecyclerView("");
+        }
+        else {
+            updateRecyclerView(searchQuery);
+        }
 
-        setUpRecyclerView();
+        // Handles real time search filtering
+        searchField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                updateRecyclerView(editable.toString());
+            }
+        });
+
+        // Handles reset button
+        resetButton.setOnClickListener(view -> {
+            if (!searchField.getText().toString().isEmpty())
+            searchField.setText("");
+        });
     }
 
-    public void setUpRecyclerView() {
-        Query query = companyRef.orderBy("name");
-
+    public void updateRecyclerView(String search) {
+        Query query;
+        if (search != null && !search.isEmpty()) {
+            String formattedSearch = search.substring(0, 1).toUpperCase() + search.substring(1);
+            query = companyRef.orderBy("name").startAt(formattedSearch).endAt(formattedSearch + "\uf8ff");
+        }
+        else {
+            query = companyRef.orderBy("name");
+        }
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-
         adapter = new CompanyAdapter(options);
-
         RecyclerView recyclerView = findViewById(R.id.searchResults);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
 
     @Override
@@ -101,9 +134,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-    public void search() {
     }
 
     /** Suggestion Handling */
