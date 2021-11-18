@@ -40,25 +40,24 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:ems="10"
-            android:hint="@string/searchFieldHint"
+            android:hint="@string/filterFieldHint"
             android:inputType="textPersonName"
             android:cursorVisible="true"
             android:textCursorDrawable="@null"
-            app:layout_constraintEnd_toStartOf="@+id/searchButton2"
+            app:layout_constraintEnd_toStartOf="@+id/resetButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <Button
-            android:id="@+id/searchButton2"
+            android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/button_background"
             android:textColor="@color/Milk"
-            android:onClick="search"
-            android:text="@string/searchButtonText"
+            android:text="@string/resetButtonText"
             app:layout_constraintBaseline_toBaselineOf="@+id/searchField2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -66,12 +65,17 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchResults"
+            android:background="@color/TransparentLightGray"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:scrollbars="vertical"
+            android:scrollbarSize="5dp"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
             app:layout_constraintTop_toBottomOf="@id/searchField2"
             app:layout_constraintBottom_toTopOf="@id/suggestField">
         </androidx.recyclerview.widget.RecyclerView>

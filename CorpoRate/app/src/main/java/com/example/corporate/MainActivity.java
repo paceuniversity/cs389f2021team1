@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CollectionReference companyRef = db.collection("Companies");
     private CompanyAdapter adapter;
     private static final String TAG = "mainActivity";
+    private static final int delayAutoScroll = 4000;
     public static final String EXTRA_MESSAGE = "com.example.corporate.MESSAGE";
 
     @Override
@@ -78,18 +81,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /** Sets up the Recycler View */
     public void setUpRecyclerView() {
-        Query query = companyRef.orderBy("numOfReviews", Query.Direction.DESCENDING).limit(3);
-
+        Query query = companyRef.orderBy("numOfReviews", Query.Direction.DESCENDING).limit(5);
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-
         adapter = new CompanyAdapter(options);
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.topThreeRecyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
+
+        //Auto scroll Recycler View
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (linearLayoutManager.findLastCompletelyVisibleItemPosition() < (adapter.getItemCount() - 1)) {
+
+                    linearLayoutManager.smoothScrollToPosition(recyclerView, new RecyclerView.State(),
+                            linearLayoutManager.findLastCompletelyVisibleItemPosition() + 1);
+                }
+
+                else if (linearLayoutManager.findLastCompletelyVisibleItemPosition() == (adapter.getItemCount() - 1)) {
+
+                    linearLayoutManager.smoothScrollToPosition(recyclerView, new RecyclerView.State(), 0);
+                }
+            }
+        }, 0, delayAutoScroll);
     }
 
     @Override
