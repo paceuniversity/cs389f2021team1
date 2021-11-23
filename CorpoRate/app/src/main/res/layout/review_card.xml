@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    android:theme="@style/Theme.MaterialComponents.Light"
+    app:cardBackgroundColor="@color/MatteCharcoal"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="left">
+
+                <TextView
+                    android:id="@+id/reviewUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sean Cesario"
+                    android:layout_gravity="center"
+                    android:textColor="@color/Milk"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/avgRatingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:layout_gravity="center"
+                    android:numStars="5"
+                    android:rating="0.1"
+                    android:stepSize="0.01"
+                    android:theme="@style/Color1RatingBarStyle" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:id="@+id/thumbsUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/small_thumbs_up_icon"
+                        app:tint="@color/Milk"
+                        android:paddingRight="10dp"/>
+
+                    <ImageView
+                        android:id="@+id/thumbsDown"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/small_thumbs_down_icon"
+                        app:tint="@color/Milk" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:gravity="fill_horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ethics"
+                    android:textSize="8sp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Milk" />
+
+                <TextView
+                    android:id="@+id/ethicsRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.66"
+                    android:textSize="8sp"
+                    android:textColor="@color/Flare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Environment"
+                    android:textSize="8sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Milk" />
+
+                <TextView
+                    android:id="@+id/environmentalRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.21"
+                    android:textSize="8sp"
+                    android:textColor="@color/Flare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leadership"
+                    android:textSize="8sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Milk" />
+
+                <TextView
+                    android:id="@+id/leadershipRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.21"
+                    android:textSize="8sp"
+                    android:textColor="@color/Flare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wage Equality"
+                    android:textSize="8sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Milk" />
+
+                <TextView
+                    android:id="@+id/wageEqualityRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.21"
+                    android:textSize="8sp"
+                    android:textColor="@color/Flare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Working Conditions"
+                    android:textSize="8sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/Milk" />
+
+                <TextView
+                    android:id="@+id/workingConditionsRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.21"
+                    android:textSize="8sp"
+                    android:textColor="@color/Flare" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/reviewDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities.Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities."
+                android:textColor="@color/Milk"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                 android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/Milk"
+                    android:text="EDIT"
+                    android:textSize="12sp"
+                    android:drawableStart="@drawable/small_edit_icon"
+                    android:drawablePadding="5dp"
+                    android:drawableTint="@color/Milk"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

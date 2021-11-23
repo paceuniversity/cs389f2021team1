@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -32,13 +35,19 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -59,6 +68,9 @@ public class CompanyActivity extends AppCompatActivity {
     private RatingBar avgWorkingConditions;
     private TextView totalReviews;
     private LinearLayout ratingLayout;
+    private ReviewAdapter adapter;
+    private RecyclerView reviewView;
+    private List<Review> reviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +90,14 @@ public class CompanyActivity extends AppCompatActivity {
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
 
+        reviewList = new ArrayList<>();
+        adapter = new ReviewAdapter(this, reviewList);
+
+        reviewView = findViewById(R.id.reviewView);
+        reviewView.setHasFixedSize(true);
+        reviewView.setAdapter(adapter);
+        reviewView.setLayoutManager(new LinearLayoutManager(this));
+
         // Drawer Navigation + Toolbar
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -91,10 +111,11 @@ public class CompanyActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         navigationView.setCheckedItem(R.id.nav_home);
 
-        // Show All User Data
+        // Show All Company Data
         DocumentReference docRef = db.collection("Companies")
                 .document("Amazon");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -108,7 +129,7 @@ public class CompanyActivity extends AppCompatActivity {
                         avgLeadership.setRating(Objects.requireNonNull(document.getLong("avgLeadership")).floatValue());
                         avgWageEquality.setRating(Objects.requireNonNull(document.getLong("avgWageEquality")).floatValue());
                         avgWorkingConditions.setRating(Objects.requireNonNull(document.getLong("avgWorkingConditions")).floatValue());
-                        totalReviews.setText(document.getLong("numOfReviews").toString());
+                        totalReviews.setText(Objects.requireNonNull(document.getLong("numOfReviews")).toString());
                     } else {
                         Log.d(TAG, "Document does not exist.");
                     }
@@ -119,6 +140,34 @@ public class CompanyActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Show all Reviews
+    Task<QuerySnapshot> dataQ;
+    {
+        dataQ = db.collection("Reviews").whereEqualTo("Company", "Amazon").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    Log.d(TAG, "Not Empty");
+
+                    for (DocumentSnapshot d : list) {
+                        Review r = d.toObject(Review.class);
+                        Log.d(TAG, "Review text: " + Objects.requireNonNull(r).getReviewText());
+                        reviewList.add(r);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+                else{
+                    Log.d(TAG, "Empty");
+                }
+            }
+        });
+    }
+
+    private CollectionReference reviewRef = db.collection("Reviews");
+    Query query = reviewRef.whereEqualto("company", "Amazon");
 
 
     /** Drawer Navigation Handling */
