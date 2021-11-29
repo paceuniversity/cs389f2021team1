@@ -129,7 +129,6 @@ public class CompanyActivity extends AppCompatActivity {
                         avgLeadership.setRating(Objects.requireNonNull(document.getLong("avgLeadership")).floatValue());
                         avgWageEquality.setRating(Objects.requireNonNull(document.getLong("avgWageEquality")).floatValue());
                         avgWorkingConditions.setRating(Objects.requireNonNull(document.getLong("avgWorkingConditions")).floatValue());
-                        totalReviews.setText(Objects.requireNonNull(document.getLong("numOfReviews")).toString());
                     } else {
                         Log.d(TAG, "Document does not exist.");
                     }
@@ -144,13 +143,13 @@ public class CompanyActivity extends AppCompatActivity {
     // Show all Reviews
     Task<QuerySnapshot> dataQ;
     {
-        dataQ = db.collection("Reviews").whereEqualTo("Company", "Amazon").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        dataQ = db.collection("Reviews").whereEqualTo("company", "Amazon").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    Log.d(TAG, "Not Empty");
+                    totalReviews.setText(list.size() + "");
 
                     for (DocumentSnapshot d : list) {
                         Review r = d.toObject(Review.class);
@@ -165,9 +164,6 @@ public class CompanyActivity extends AppCompatActivity {
             }
         });
     }
-
-    private CollectionReference reviewRef = db.collection("Reviews");
-    Query query = reviewRef.whereEqualto("company", "Amazon");
 
 
     /** Drawer Navigation Handling */
