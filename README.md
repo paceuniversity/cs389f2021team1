@@ -49,7 +49,7 @@
 * [**Scrums**](https://docs.google.com/document/d/1F4nuJsd8_IuRvkDlxGsbZftshuB7cTuNC3DWiZtrWeY/edit?usp=sharing)
 * Sprint Demo
 * APK
-* Sprint Retrospective
+* [**Sprint Retrospective**](https://docs.google.com/document/d/1_ZTHuyK0VF1BgrtfNky7TbQygARyJrmg0lY9QJCPA0o/edit?usp=sharing)
 
 # Sprint 3
 
