@@ -40,6 +40,8 @@
         <entry key="..\:/Users/geeka/Desktop/SE/cs389f2021team1/CorpoRate/app/src/main/res/layout/header.xml" value="0.1" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1287037037037037" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/CorpRateLogo_background.xml" value="0.4430769230769231" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/home_reviews_card.xml" value="0.46770833333333334" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/home_welcome_card.xml" value="0.46770833333333334" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.4430769230769231" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_about.xml" value="0.2773556231003039" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_company.xml" value="0.5" />
@@ -48,7 +50,10 @@
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_profile.xml" value="0.5" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_register.xml" value="0.20555555555555555" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search.xml" value="0.2773556231003039" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_splash.xml" value="0.44114583333333335" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/header.xml" value="0.44114583333333335" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/review_card.xml" value="0.47136752136752136" />
+        <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/layout/toolbar.xml" value="0.44114583333333335" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/menu/topbar.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/mipmap-anydpi-v26/CorpRateLogo.xml" value="0.4430769230769231" />
         <entry key="..\:/Users/sean cesario/Desktop/academics/Fall 2021/[CS 389] Software Engineering/cs389f2021team1/CorpoRate/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1287037037037037" />
