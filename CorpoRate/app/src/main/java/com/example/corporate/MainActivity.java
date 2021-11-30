@@ -1,5 +1,7 @@
 package com.example.corporate;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,14 +10,18 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,20 +30,27 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView displayName;
     private RecyclerView topThreeCompanies;
-    private CollectionReference companyRef = db.collection("Companies");
+    private final CollectionReference companyRef = db.collection("Companies");
     private CompanyAdapter adapter;
+    private ReviewAdapter reviewAdapter;
+    private RecyclerView myReviewsView;
+    private List<Review> myReviewList;
     private static final String TAG = "mainActivity";
     private static final int delayAutoScroll = 4000;
     public static final String EXTRA_MESSAGE = "com.example.corporate.MESSAGE";
@@ -48,6 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Home");
+
+        myReviewList = new ArrayList<>();
+        reviewAdapter = new ReviewAdapter(this, myReviewList);
+
+        myReviewsView = findViewById(R.id.myReviewsView);
+        myReviewsView.setHasFixedSize(true);
+        myReviewsView.setAdapter(reviewAdapter);
+        myReviewsView.setLayoutManager(new LinearLayoutManager(this));
 
         // Drawer Navigation + Toolbar
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -121,6 +142,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    // Show my Reviews
+    Task<QuerySnapshot> dataQ;
+    {
+        dataQ = db.collection("Reviews").whereEqualTo("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+
+                    for (DocumentSnapshot d : list) {
+                        Review r = d.toObject(Review.class);
+                        myReviewList.add(r);
+                    }
+                    reviewAdapter.notifyDataSetChanged();
+                }
+                else{
+                    Log.d(TAG, "Empty");
+                }
+            }
+        });
     }
 
     /** Called when the user taps the Search button */

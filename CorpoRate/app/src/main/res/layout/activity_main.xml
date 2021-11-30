@@ -145,7 +145,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayName" />
+            app:layout_constraintTop_toBottomOf="@+id/displayName" >
+        </View>
 
         <TextView
             android:id="@+id/my_rev"
@@ -160,6 +161,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"/>
 
+
         <ImageView
             android:id="@+id/homeScreenLogo"
             android:layout_width="50dp"
@@ -169,6 +171,17 @@
             app:layout_constraintRight_toRightOf="@id/welcomeCard"
             android:layout_margin="20dp"
             app:srcCompat="@drawable/corporate_logo" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myReviewsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/reviewsCard" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
