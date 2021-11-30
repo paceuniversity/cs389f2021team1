@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".CompanyActivity"
+    tools:openDrawer="start">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/nav_drawer" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/Flare"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/companyLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circular_border_background"
+                android:padding="5dp"
+                android:src="@drawable/corporate_logo" />
+
+            <TextView
+                android:id="@+id/companyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/companyLogo"
+                android:includeFontPadding="false"
+                android:text="Company Name"
+                android:textColor="@color/MatteCharcoal"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/companyLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                android:layout_below="@+id/companyName"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/companyLogo"
+                android:includeFontPadding="false"
+                android:text="Location"
+                android:textColor="@color/MatteCharcoal"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/small_location_icon"
+                app:drawableTint="@color/MatteCharcoal" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-75dp"
+            android:gravity="center"
+            android:paddingTop="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:onClick="expandCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:cardBackgroundColor="@color/MatteCharcoal"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/totalCompanyReviews"
+                        android:paddingBottom="7dp"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/Milk"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/small_reviews_icon"
+                        app:drawableTint="@color/Milk"
+                        android:drawablePadding="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Average rating"
+                            android:paddingRight="5dp"
+                            android:textColor="@color/Milk"
+                            android:textSize="13sp" />
+
+                        <RatingBar
+                            android:id="@+id/overallRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.AppCompat.RatingBar.Small"
+                            android:theme="@style/Color1RatingBarStyle"
+                            android:numStars="5"
+                            android:stepSize="0.01"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/companyRatingDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="7dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/EthicsRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ethics"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/EthicsRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="3dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/EnvironmentalRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Environmental"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/EnvironmentalRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="3dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/LeadershipRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Leadership"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/LeadershipRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="3dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/WorkingConditionsRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Working Conditions"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/WorkingConditionsRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="3dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/WageEqualityRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="WageEquality"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/WageEqualityRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reviewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
