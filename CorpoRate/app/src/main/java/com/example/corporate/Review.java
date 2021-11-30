@@ -9,7 +9,9 @@ public class Review {
 
     }
 
-    public Review(String company, String UID, String reviewText, double avgEnvironmental, double avgEthics, double avgLeadership, double avgRating, double avgWageEquality,double avgWorkingConditions, int numOfDislikes, int numOfLikes){
+    public Review(String company, String UID, String reviewText, double avgEnvironmental, double avgEthics,
+                  double avgLeadership, double avgRating, double avgWageEquality,double avgWorkingConditions,
+                  int numOfDislikes, int numOfLikes) {
         this.company = company;
         this.UID = UID;
         this.reviewText = reviewText;
@@ -22,7 +24,6 @@ public class Review {
         this.numOfDislikes = numOfDislikes;
         this.numOfLikes = numOfLikes;
     }
-
 
     public String getCompany() {
         return company;
