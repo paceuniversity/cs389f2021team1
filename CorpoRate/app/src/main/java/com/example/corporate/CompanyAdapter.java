@@ -11,16 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class CompanyAdapter extends FirestoreRecyclerAdapter<Company, CompanyAdapter.CompanyHolder> {
+    private OnItemClickListener listener;
 
-    //sean
-    private onCompanyListener mOnCompanyListener;
-
-    public CompanyAdapter(@NonNull FirestoreRecyclerOptions<Company> options, onCompanyListener OnCompanyListener) {
+    public CompanyAdapter(@NonNull FirestoreRecyclerOptions<Company> options) {
         super(options);
-        //sean
-        this.mOnCompanyListener = OnCompanyListener;
     }
 
     @Override
@@ -45,40 +42,39 @@ public class CompanyAdapter extends FirestoreRecyclerAdapter<Company, CompanyAda
     public CompanyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.company_card,
                 parent, false);
-        return new CompanyHolder(v,mOnCompanyListener);
+        return new CompanyHolder(v);
     }
 
-    class CompanyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class CompanyHolder extends RecyclerView.ViewHolder {
         TextView companyName, companyLocation, companyNumReviews;
         ImageView companyLogo;
         RatingBar ratingBar;
-        //sean
-        onCompanyListener onCompanyListener;
 
-        public CompanyHolder(@NonNull View itemView, onCompanyListener onCompanyListener) {
+        public CompanyHolder(@NonNull View itemView) {
             super(itemView);
-            //sean
-            this.onCompanyListener = onCompanyListener;
-
             companyName = itemView.findViewById(R.id.company_name);
             companyLocation = itemView.findViewById(R.id.company_location);
             companyNumReviews = itemView.findViewById(R.id.company_num_reviews);
             companyLogo = itemView.findViewById(R.id.company_logo);
             ratingBar = itemView.findViewById(R.id.ratingBar);
 
-            //sean
-            itemView.setOnClickListener(this);
-        }
-
-        //sean
-        @Override
-        public void onClick(View v) {
-            onCompanyListener.onCompanyClick(getAbsoluteAdapterPosition());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAbsoluteAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+                }
+            });
         }
     }
 
-    //sean
-    public interface onCompanyListener{
-        void onCompanyClick(int position);
+    public interface OnItemClickListener {
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

@@ -121,7 +121,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Average rating"
+                            android:text="Average Rating"
                             android:paddingRight="5dp"
                             android:textColor="@color/Milk"
                             android:textSize="13sp" />
@@ -133,6 +133,8 @@
                             style="@style/Widget.AppCompat.RatingBar.Small"
                             android:theme="@style/Color1RatingBarStyle"
                             android:numStars="5"
+                            android:secondaryProgressTint="#00000000"
+                            android:rating="0.0"
                             android:stepSize="0.01"/>
                     </LinearLayout>
 
@@ -166,6 +168,8 @@
                                 style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:theme="@style/Color1RatingBarStyle"
                                 android:numStars="5"
+                                android:secondaryProgressTint="#00000000"
+                                android:rating="0.0"
                                 android:stepSize="0.01"/>
                         </LinearLayout>
 
@@ -192,6 +196,8 @@
                                 style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:theme="@style/Color1RatingBarStyle"
                                 android:numStars="5"
+                                android:secondaryProgressTint="#00000000"
+                                android:rating="0.0"
                                 android:stepSize="0.01"/>
                         </LinearLayout>
 
@@ -218,6 +224,36 @@
                                 style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:theme="@style/Color1RatingBarStyle"
                                 android:numStars="5"
+                                android:secondaryProgressTint="#00000000"
+                                android:rating="0.0"
+                                android:stepSize="0.01"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="3dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/WageEqualityRatingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Wage Equality"
+                                android:paddingRight="5dp"
+                                android:textColor="@color/Milk"
+                                android:textSize="10sp" />
+
+                            <RatingBar
+                                android:id="@+id/WageEqualityRating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.AppCompat.RatingBar.Small"
+                                android:theme="@style/Color1RatingBarStyle"
+                                android:numStars="5"
+                                android:secondaryProgressTint="#00000000"
+                                android:rating="0.0"
                                 android:stepSize="0.01"/>
                         </LinearLayout>
 
@@ -244,32 +280,8 @@
                                 style="@style/Widget.AppCompat.RatingBar.Small"
                                 android:theme="@style/Color1RatingBarStyle"
                                 android:numStars="5"
-                                android:stepSize="0.01"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="3dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:id="@+id/WageEqualityRatingText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="WageEquality"
-                                android:paddingRight="5dp"
-                                android:textColor="@color/Milk"
-                                android:textSize="10sp" />
-
-                            <RatingBar
-                                android:id="@+id/WageEqualityRating"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
+                                android:secondaryProgressTint="#00000000"
+                                android:rating="0.0"
                                 android:stepSize="0.01"/>
                         </LinearLayout>
                     </LinearLayout>
