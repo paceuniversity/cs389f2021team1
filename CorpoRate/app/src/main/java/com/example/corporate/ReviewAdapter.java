@@ -4,6 +4,8 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -80,6 +83,23 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         if(review.getUID().equals(auth.getCurrentUser().getUid()))
             holder.editButton.setVisibility(View.VISIBLE);
+
+
+        holder.reviewCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.subRatingsTop.getVisibility() == View.GONE) {
+                    holder.subRatingsTop.setVisibility(View.VISIBLE);
+                    holder.subRatingsBottom.setVisibility(View.VISIBLE);
+                    holder.reviewDesc.setMaxLines(10);
+                }else {
+                    holder.subRatingsTop.setVisibility(View.GONE);
+                    holder.subRatingsBottom.setVisibility(View.GONE);
+                    holder.reviewDesc.setMaxLines(4);
+                }
+
+            }
+        });
     }
 
     @Override
@@ -89,8 +109,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     static class ReviewViewHolder extends RecyclerView.ViewHolder {
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions;
-        LinearLayout editButton;
+        LinearLayout editButton, subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
+
+        MaterialCardView reviewCard;
 
         public ReviewViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +126,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             avgWageEquality = itemView.findViewById(R.id.wageEqualityRating);
             avgWorkingConditions = itemView.findViewById(R.id.workingConditionsRating);
             editButton = itemView.findViewById(R.id.editLayout);
+            subRatingsTop = itemView.findViewById(R.id.reviewSubRatingsTop);
+            subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
+
+            reviewCard = itemView.findViewById(R.id.entireReviewCard);
         }
     }
 

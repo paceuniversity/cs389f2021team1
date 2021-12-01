@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CompanyActivity extends AppCompatActivity {
+public class CompanyActivity extends AppCompatActivity{
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
@@ -45,11 +45,11 @@ public class CompanyActivity extends AppCompatActivity {
     private TextView companyName;
     private TextView companyLocation;
     private RatingBar avgRating;
-    private RatingBar avgEthics;
-    private RatingBar avgEnvironmental;
-    private RatingBar avgLeadership;
-    private RatingBar avgWageEquality;
-    private RatingBar avgWorkingConditions;
+    private TextView avgEthics;
+    private TextView avgEnvironmental;
+    private TextView avgLeadership;
+    private TextView avgWageEquality;
+    private TextView avgWorkingConditions;
     private TextView totalReviews;
     private LinearLayout ratingLayout;
     private ReviewAdapter adapter;
@@ -68,11 +68,11 @@ public class CompanyActivity extends AppCompatActivity {
         companyName = findViewById(R.id.companyName);
         companyLocation = findViewById(R.id.companyLocation);
         avgRating = findViewById(R.id.overallRating);
-        avgEthics = findViewById(R.id.EthicsRating);
-        avgEnvironmental = findViewById(R.id.EnvironmentalRating);
-        avgLeadership = findViewById(R.id.LeadershipRating);
-        avgWageEquality = findViewById(R.id.WageEqualityRating);
-        avgWorkingConditions = findViewById(R.id.WorkingConditionsRating);
+        avgEthics = findViewById(R.id.companyEthicsRating);
+        avgEnvironmental = findViewById(R.id.companyEnvironmentalRating);
+        avgLeadership = findViewById(R.id.companyLeadershipRating);
+        avgWageEquality = findViewById(R.id.companyWageEqualityRating);
+        avgWorkingConditions = findViewById(R.id.companyWorkingConditionsRating);
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
 
@@ -118,11 +118,11 @@ public class CompanyActivity extends AppCompatActivity {
                         companyName.setText(cName);
                         companyLocation.setText(document.getString("location"));
                         avgRating.setRating(Objects.requireNonNull(document.getDouble("avgRating")).floatValue());
-                        avgEthics.setRating(Objects.requireNonNull(document.getDouble("avgEthics")).floatValue());
-                        avgEnvironmental.setRating(Objects.requireNonNull(document.getDouble("avgEnvironmental")).floatValue());
-                        avgLeadership.setRating(Objects.requireNonNull(document.getDouble("avgLeadership")).floatValue());
-                        avgWageEquality.setRating(Objects.requireNonNull(document.getDouble("avgWageEquality")).floatValue());
-                        avgWorkingConditions.setRating(Objects.requireNonNull(document.getDouble("avgWorkingConditions")).floatValue());
+                        avgEthics.setText(Objects.requireNonNull(document.getDouble("avgEthics").toString()));
+                        avgEnvironmental.setText(Objects.requireNonNull(document.getDouble("avgEnvironmental").toString()));
+                        avgLeadership.setText(Objects.requireNonNull(document.getDouble("avgLeadership").toString()));
+                        avgWageEquality.setText(Objects.requireNonNull(document.getDouble("avgWageEquality").toString()));
+                        avgWorkingConditions.setText(Objects.requireNonNull(document.getDouble("avgWorkingConditions").toString()));
 
                         Glide.with(companyLogo.getContext()).load(document.getString("logo"))
                                 .fitCenter().placeholder(companyLogo.getDrawable()).into(companyLogo);
