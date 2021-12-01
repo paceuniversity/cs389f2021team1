@@ -11,10 +11,6 @@
             android:icon="@drawable/search_icon"
             android:title="Search" />
         <item
-            android:id="@+id/nav_my_reviews"
-            android:icon="@drawable/my_reviews_icon"
-            android:title="My Reviews" />
-        <item
             android:id="@+id/nav_about"
             android:icon="@drawable/about_icon"
             android:title="About" />

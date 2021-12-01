@@ -143,8 +143,6 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
             case R.id.nav_search:
                 startActivity(new Intent(AboutActivity.this, SearchActivity.class));
                 break;
-            case R.id.nav_my_reviews:
-                break;
             case R.id.nav_about:
                 break;
             case R.id.nav_profile:

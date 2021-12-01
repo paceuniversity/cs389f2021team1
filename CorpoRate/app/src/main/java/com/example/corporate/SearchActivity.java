@@ -31,13 +31,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompanyAdapter.onCompanyListener {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView searchField;
+    private TextView companyName;
     private Button resetButton;
     private RecyclerView results;
     private CollectionReference companyRef = db.collection("Companies");
@@ -69,6 +70,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         searchField = findViewById(R.id.searchField2);
         resetButton = findViewById(R.id.resetButton);
         results = findViewById(R.id.searchResults);
+        companyName = findViewById(R.id.companyName);
 
         // Update search field from home page
         Intent intent = getIntent();
@@ -116,7 +118,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-        adapter = new CompanyAdapter(options);
+        adapter = new CompanyAdapter(options, this);
         RecyclerView recyclerView = findViewById(R.id.searchResults);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -180,8 +182,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_search:
                 break;
-            case R.id.nav_my_reviews:
-                break;
             case R.id.nav_about:
                 startActivity(new Intent(SearchActivity.this, AboutActivity.class));
                 break;
@@ -195,5 +195,11 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onCompanyClick(int position) {
+        companyName.setText(adapter.getItem(position).getName());
+        startActivity(new Intent(SearchActivity.this, CompanyActivity.class));
     }
 }

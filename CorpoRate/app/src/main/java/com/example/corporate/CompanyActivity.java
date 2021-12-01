@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -54,6 +56,7 @@ public class CompanyActivity extends AppCompatActivity {
     private ReviewAdapter adapter;
     private RecyclerView reviewView;
     private List<Review> reviewList;
+    private String cName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class CompanyActivity extends AppCompatActivity {
         avgWorkingConditions = findViewById(R.id.WorkingConditionsRating);
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
+
+        cName = companyName.getText().toString();
 
         reviewList = new ArrayList<>();
         adapter = new ReviewAdapter(this, reviewList);
@@ -96,7 +101,7 @@ public class CompanyActivity extends AppCompatActivity {
 
         // Show All Company Data
         DocumentReference docRef = db.collection("Companies")
-                .document("Amazon");
+                .document(cName);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -104,7 +109,6 @@ public class CompanyActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document != null && document.exists()) {
-                        companyName.setText(document.getId());
                         companyLocation.setText(document.getString("location"));
                         avgRating.setRating(Objects.requireNonNull(document.getLong("avgRating")).floatValue());
                         avgEthics.setRating(Objects.requireNonNull(document.getLong("avgEthics")).floatValue());
@@ -112,6 +116,9 @@ public class CompanyActivity extends AppCompatActivity {
                         avgLeadership.setRating(Objects.requireNonNull(document.getLong("avgLeadership")).floatValue());
                         avgWageEquality.setRating(Objects.requireNonNull(document.getLong("avgWageEquality")).floatValue());
                         avgWorkingConditions.setRating(Objects.requireNonNull(document.getLong("avgWorkingConditions")).floatValue());
+
+                        Glide.with(companyLogo.getContext()).load(document.getString("logo"))
+                                .fitCenter().placeholder(companyLogo.getDrawable()).into(companyLogo);
                     } else {
                         Log.d(TAG, "Document does not exist.");
                     }
@@ -126,7 +133,7 @@ public class CompanyActivity extends AppCompatActivity {
     // Show all Reviews
     Task<QuerySnapshot> dataQ;
     {
-        dataQ = db.collection("Reviews").whereEqualTo("company", "Amazon").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -136,7 +143,6 @@ public class CompanyActivity extends AppCompatActivity {
 
                     for (DocumentSnapshot d : list) {
                         Review r = d.toObject(Review.class);
-                        Log.d(TAG, "Review text: " + Objects.requireNonNull(r).getReviewText());
                         reviewList.add(r);
                     }
                     adapter.notifyDataSetChanged();
@@ -156,8 +162,6 @@ public class CompanyActivity extends AppCompatActivity {
                 break;
             case R.id.nav_search:
                 startActivity(new Intent(CompanyActivity.this, SearchActivity.class));
-                break;
-            case R.id.nav_my_reviews:
                 break;
             case R.id.nav_about:
                 startActivity(new Intent(CompanyActivity.this, AboutActivity.class));

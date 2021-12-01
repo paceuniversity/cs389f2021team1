@@ -38,7 +38,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompanyAdapter.onCompanyListener {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private DrawerLayout drawerLayout;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-        adapter = new CompanyAdapter(options);
+        adapter = new CompanyAdapter(options, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.topThreeRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -185,10 +185,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_search:
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 break;
-            case R.id.nav_my_reviews:
-                //temp
-                startActivity(new Intent(MainActivity.this, CompanyActivity.class));
-                break;
             case R.id.nav_about:
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
@@ -202,5 +198,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onCompanyClick(int position) {
+        startActivity(new Intent(MainActivity.this, CompanyActivity.class));
     }
 }

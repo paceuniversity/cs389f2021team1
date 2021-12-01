@@ -8,44 +8,43 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
-import java.util.Objects;
 
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReveiwViewHolder> {
-    private Context mCtx;
-    private List<Review> reviewList;
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
+    private final Context mCtx;
+    private final List<Review> reviewList;
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ReviewAdapter(Context mCtx, List<Review> reviewList){
+    public ReviewAdapter(Context mCtx, List<Review> reviewList) {
         this.mCtx = mCtx;
         this.reviewList = reviewList;
     }
 
     @NonNull
     @Override
-    public ReveiwViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ReveiwViewHolder(
+    public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ReviewViewHolder(
                 LayoutInflater.from(mCtx).inflate(R.layout.review_card, parent, false)
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ReveiwViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ReviewViewHolder holder, int position) {
         Review review = reviewList.get(position);
 
         //get username
@@ -58,22 +57,29 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReveiwView
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document != null && document.exists()) {
-                        if(!document.getBoolean("anonymous"))
+                        if (!document.getBoolean("anonymous"))
                             holder.username.setText(document.getString("username"));
                         else
                             holder.username.setText("Anonymous User");
                     } else {
                         Log.d(TAG, "Document does not exist.");
                     }
-                }
-                else {
+                } else {
                     Log.d(TAG, "Failed to pull from database.", task.getException());
                 }
             }
         });
 
         holder.reviewDesc.setText(review.getReviewText());
-        holder.reviewDesc.setText(review.getReviewText());
+        holder.avgRatingBar.setRating(((float) review.getAvgRating()));
+        holder.avgEnvironmental.setText("" + review.getAvgEnvironmental());
+        holder.avgEthics.setText("" + review.getAvgEthics());
+        holder.avgLeadership.setText("" + review.getAvgLeadership());
+        holder.avgWageEquality.setText("" + review.getAvgWageEquality());
+        holder.avgWorkingConditions.setText("" + review.getAvgWorkingConditions());
+
+        if(review.getUID().equals(auth.getCurrentUser().getUid()))
+            holder.editButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -81,10 +87,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReveiwView
         return reviewList.size();
     }
 
-    class ReveiwViewHolder extends RecyclerView.ViewHolder{
+    static class ReviewViewHolder extends RecyclerView.ViewHolder {
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions;
+        LinearLayout editButton;
         RatingBar avgRatingBar;
-        public ReveiwViewHolder(View itemView){
+
+        public ReviewViewHolder(View itemView) {
             super(itemView);
 
             username = itemView.findViewById(R.id.reviewUserName);
@@ -95,8 +103,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReveiwView
             avgLeadership = itemView.findViewById(R.id.leadershipRating);
             avgWageEquality = itemView.findViewById(R.id.wageEqualityRating);
             avgWorkingConditions = itemView.findViewById(R.id.workingConditionsRating);
+            editButton = itemView.findViewById(R.id.editLayout);
         }
     }
-
 
 }
