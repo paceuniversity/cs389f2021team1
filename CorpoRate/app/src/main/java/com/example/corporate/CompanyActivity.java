@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -61,6 +60,7 @@ public class CompanyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Company Details");
         setContentView(R.layout.activity_company);
 
         //hooks
@@ -76,7 +76,8 @@ public class CompanyActivity extends AppCompatActivity {
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
 
-        cName = companyName.getText().toString();
+        Intent intent = getIntent();
+        cName = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
 
         reviewList = new ArrayList<>();
         adapter = new ReviewAdapter(this, reviewList);
@@ -98,6 +99,11 @@ public class CompanyActivity extends AppCompatActivity {
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         navigationView.setCheckedItem(R.id.nav_home);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         // Show All Company Data
         DocumentReference docRef = db.collection("Companies")
@@ -109,13 +115,14 @@ public class CompanyActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document != null && document.exists()) {
+                        companyName.setText(cName);
                         companyLocation.setText(document.getString("location"));
-                        avgRating.setRating(Objects.requireNonNull(document.getLong("avgRating")).floatValue());
-                        avgEthics.setRating(Objects.requireNonNull(document.getLong("avgEthics")).floatValue());
-                        avgEnvironmental.setRating(Objects.requireNonNull(document.getLong("avgEnvironmental")).floatValue());
-                        avgLeadership.setRating(Objects.requireNonNull(document.getLong("avgLeadership")).floatValue());
-                        avgWageEquality.setRating(Objects.requireNonNull(document.getLong("avgWageEquality")).floatValue());
-                        avgWorkingConditions.setRating(Objects.requireNonNull(document.getLong("avgWorkingConditions")).floatValue());
+                        avgRating.setRating(Objects.requireNonNull(document.getDouble("avgRating")).floatValue());
+                        avgEthics.setRating(Objects.requireNonNull(document.getDouble("avgEthics")).floatValue());
+                        avgEnvironmental.setRating(Objects.requireNonNull(document.getDouble("avgEnvironmental")).floatValue());
+                        avgLeadership.setRating(Objects.requireNonNull(document.getDouble("avgLeadership")).floatValue());
+                        avgWageEquality.setRating(Objects.requireNonNull(document.getDouble("avgWageEquality")).floatValue());
+                        avgWorkingConditions.setRating(Objects.requireNonNull(document.getDouble("avgWorkingConditions")).floatValue());
 
                         Glide.with(companyLogo.getContext()).load(document.getString("logo"))
                                 .fitCenter().placeholder(companyLogo.getDrawable()).into(companyLogo);
@@ -128,30 +135,30 @@ public class CompanyActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    // Show all Reviews
-    Task<QuerySnapshot> dataQ;
-    {
-        dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    totalReviews.setText(list.size() + "");
+        // Show all Reviews
+        Task<QuerySnapshot> dataQ;
+        {
+            dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        totalReviews.setText(list.size() + "");
 
-                    for (DocumentSnapshot d : list) {
-                        Review r = d.toObject(Review.class);
-                        reviewList.add(r);
+                        for (DocumentSnapshot d : list) {
+                            Review r = d.toObject(Review.class);
+                            reviewList.add(r);
+                        }
+                        adapter.notifyDataSetChanged();
                     }
-                    adapter.notifyDataSetChanged();
+                    else{
+                        Log.d(TAG, "Empty");
+                    }
                 }
-                else{
-                    Log.d(TAG, "Empty");
-                }
-            }
-        });
+            });
+        }
     }
 
     /** Drawer Navigation Handling */

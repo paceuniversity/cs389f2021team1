@@ -1,7 +1,5 @@
 package com.example.corporate;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +8,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,14 +28,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompanyAdapter.onCompanyListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private DrawerLayout drawerLayout;
@@ -98,6 +94,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handles the top three companies RecyclerView
         topThreeCompanies = findViewById(R.id.topThreeRecyclerView);
         setUpRecyclerView();
+
+        // Handles company card clicks
+        adapter.setOnItemClickListener(new CompanyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Company company = documentSnapshot.toObject(Company.class);
+                Intent intent = new Intent(MainActivity.this, CompanyActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, Objects.requireNonNull(company).getName());
+                startActivity(intent);
+            }
+        });
     }
 
     /** Sets up the Recycler View */
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-        adapter = new CompanyAdapter(options, this);
+        adapter = new CompanyAdapter(options);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.topThreeRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -198,10 +205,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onCompanyClick(int position) {
-        startActivity(new Intent(MainActivity.this, CompanyActivity.class));
     }
 }

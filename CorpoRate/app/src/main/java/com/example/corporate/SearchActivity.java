@@ -25,13 +25,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CompanyAdapter.onCompanyListener {
+public class SearchActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
@@ -46,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
     private static final String TAG = "searchActivity";
     private static final String KEY_NAME_CONTENT= "content";
     private static final String KEY_NAME_UID = "uid";
+    public static final String EXTRA_MESSAGE = "com.example.corporate.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,17 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
             if (!searchField.getText().toString().isEmpty())
             searchField.setText("");
         });
+
+        // Handles company card clicks
+        adapter.setOnItemClickListener(new CompanyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Company company = documentSnapshot.toObject(Company.class);
+                Intent intent = new Intent(SearchActivity.this, CompanyActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, Objects.requireNonNull(company).getName());
+                startActivity(intent);
+            }
+        });
     }
 
     public void updateRecyclerView(String search) {
@@ -118,7 +131,7 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         FirestoreRecyclerOptions<Company> options = new FirestoreRecyclerOptions.Builder<Company>()
                 .setQuery(query, Company.class)
                 .build();
-        adapter = new CompanyAdapter(options, this);
+        adapter = new CompanyAdapter(options);
         RecyclerView recyclerView = findViewById(R.id.searchResults);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -195,11 +208,5 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onCompanyClick(int position) {
-        companyName.setText(adapter.getItem(position).getName());
-        startActivity(new Intent(SearchActivity.this, CompanyActivity.class));
     }
 }

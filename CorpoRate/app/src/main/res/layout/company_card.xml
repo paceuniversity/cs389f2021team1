@@ -65,8 +65,11 @@
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/company_num_reviews"
             android:layout_toEndOf="@id/company_logo"
-            android:progressTint="@color/Flare"
-            android:layout_below="@id/company_num_reviews"/>
+            android:rating="0.0"
+            android:secondaryProgressTint="#00000000"
+            android:stepSize="0.01"
+            android:theme="@style/Color2RatingBarStyle" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
