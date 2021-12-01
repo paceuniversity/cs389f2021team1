@@ -53,7 +53,7 @@
 
 # Sprint 3
 
-* Sprint Planning
+* [**Sprint Planning**](https://docs.google.com/document/d/1ON1geVC_IVJ7NJexfv2A-k32JL5AgZoNnK5qWlESkz8/edit) | [**Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit#gid=1259685748)
 * Scrums
 * Sprint Demo
 * APK
