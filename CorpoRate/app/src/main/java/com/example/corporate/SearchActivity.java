@@ -106,17 +106,6 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
             if (!searchField.getText().toString().isEmpty())
             searchField.setText("");
         });
-
-        // Handles company card clicks
-        adapter.setOnItemClickListener(new CompanyAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                Company company = documentSnapshot.toObject(Company.class);
-                Intent intent = new Intent(SearchActivity.this, CompanyActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, Objects.requireNonNull(company).getName());
-                startActivity(intent);
-            }
-        });
     }
 
     public void updateRecyclerView(String search) {
@@ -137,6 +126,17 @@ public class SearchActivity extends AppCompatActivity implements NavigationView.
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+
+        // Handles company card clicks
+        adapter.setOnItemClickListener(new CompanyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Company company = documentSnapshot.toObject(Company.class);
+                Intent intent = new Intent(SearchActivity.this, CompanyActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, Objects.requireNonNull(company).getName());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
