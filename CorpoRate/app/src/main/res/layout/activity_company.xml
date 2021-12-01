@@ -40,9 +40,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/circular_border_background"
                 android:padding="5dp"
-                android:src="@drawable/corporate_logo" />
+                android:src="@drawable/circular_border_background" />
 
             <TextView
                 android:id="@+id/companyName"
@@ -53,7 +52,7 @@
                 android:layout_toEndOf="@+id/companyLogo"
                 android:includeFontPadding="false"
                 android:text="Company Name"
-                android:textColor="@color/MatteCharcoal"
+                android:textColor="@color/Milk"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -61,16 +60,16 @@
                 android:id="@+id/companyLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="5dp"
                 android:layout_below="@+id/companyName"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/companyLogo"
+                android:drawablePadding="5dp"
                 android:includeFontPadding="false"
                 android:text="Location"
-                android:textColor="@color/MatteCharcoal"
+                android:textColor="@color/Milk"
                 android:textSize="16sp"
                 app:drawableStartCompat="@drawable/small_location_icon"
-                app:drawableTint="@color/MatteCharcoal" />
+                app:drawableTint="@color/Milk" />
 
         </RelativeLayout>
 
@@ -124,7 +123,8 @@
                             android:text="Average Rating"
                             android:paddingRight="5dp"
                             android:textColor="@color/Milk"
-                            android:textSize="13sp" />
+                            android:textSize="10sp"
+                            android:textStyle="bold"/>
 
                         <RatingBar
                             android:id="@+id/overallRating"
@@ -146,143 +146,134 @@
                         android:visibility="gone">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingTop="7dp"
-                            android:gravity="center">
+                            android:layout_gravity="center">
 
                             <TextView
-                                android:id="@+id/EthicsRatingText"
+                                android:id="@+id/companyEthicsRatingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ethics"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Milk"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:layout_weight="1"/>
 
-                            <RatingBar
-                                android:id="@+id/EthicsRating"
+
+                            <TextView
+                                android:id="@+id/companyEthicsRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
-                                android:secondaryProgressTint="#00000000"
-                                android:rating="0.0"
-                                android:stepSize="0.01"/>
+                                android:text="3.21"
+                                android:textSize="10sp"
+                                android:textColor="@color/Flare" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingTop="3dp"
-                            android:gravity="center">
+                            android:layout_gravity ="center">
 
                             <TextView
-                                android:id="@+id/EnvironmentalRatingText"
+                                android:id="@+id/companyEnvironmentalRatingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Environmental"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Milk"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:layout_weight="1"/>
 
-                            <RatingBar
-                                android:id="@+id/EnvironmentalRating"
+                            <TextView
+                                android:id="@+id/companyEnvironmentalRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
-                                android:secondaryProgressTint="#00000000"
-                                android:rating="0.0"
-                                android:stepSize="0.01"/>
+                                android:text="3.21"
+                                android:textSize="10sp"
+                                android:textColor="@color/Flare" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingTop="3dp"
-                            android:gravity="center">
+                            android:layout_gravity="center">
 
                             <TextView
-                                android:id="@+id/LeadershipRatingText"
+                                android:id="@+id/companyLeadershipRatingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Leadership"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Milk"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:layout_weight="1"/>
 
-                            <RatingBar
-                                android:id="@+id/LeadershipRating"
+                            <TextView
+                                android:id="@+id/companyLeadershipRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
-                                android:secondaryProgressTint="#00000000"
-                                android:rating="0.0"
-                                android:stepSize="0.01"/>
+                                android:text="3.21"
+                                android:textSize="10sp"
+                                android:textColor="@color/Flare" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingTop="3dp"
-                            android:gravity="center">
+                            android:layout_gravity="center">
 
                             <TextView
-                                android:id="@+id/WageEqualityRatingText"
+                                android:id="@+id/companyWageEqualityRatingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Wage Equality"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Milk"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:layout_weight="1"/>
 
-                            <RatingBar
-                                android:id="@+id/WageEqualityRating"
+                            <TextView
+                                android:id="@+id/companyWageEqualityRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
-                                android:secondaryProgressTint="#00000000"
-                                android:rating="0.0"
-                                android:stepSize="0.01"/>
+                                android:text="3.21"
+                                android:textSize="10sp"
+                                android:textColor="@color/Flare" />
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:paddingTop="3dp"
-                            android:gravity="center">
+                            android:layout_gravity="center">
 
                             <TextView
-                                android:id="@+id/WorkingConditionsRatingText"
+                                android:id="@+id/companyWorkingConditionsRatingText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Working Conditions"
                                 android:paddingRight="5dp"
                                 android:textColor="@color/Milk"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                android:layout_weight="1"/>
 
-                            <RatingBar
-                                android:id="@+id/WorkingConditionsRating"
+                            <TextView
+                                android:id="@+id/companyWorkingConditionsRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Widget.AppCompat.RatingBar.Small"
-                                android:theme="@style/Color1RatingBarStyle"
-                                android:numStars="5"
-                                android:secondaryProgressTint="#00000000"
-                                android:rating="0.0"
-                                android:stepSize="0.01"/>
+                                android:text="3.21"
+                                android:textSize="10sp"
+                                android:textColor="@color/Flare" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
