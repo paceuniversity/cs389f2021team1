@@ -186,8 +186,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
             case R.id.nav_search:
                 startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
                 break;
-            case R.id.nav_my_reviews:
-                break;
             case R.id.nav_about:
                 startActivity(new Intent(ProfileActivity.this, AboutActivity.class));
                 break;

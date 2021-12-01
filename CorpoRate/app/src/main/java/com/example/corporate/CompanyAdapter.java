@@ -14,8 +14,13 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 public class CompanyAdapter extends FirestoreRecyclerAdapter<Company, CompanyAdapter.CompanyHolder> {
 
-    public CompanyAdapter(@NonNull FirestoreRecyclerOptions<Company> options) {
+    //sean
+    private onCompanyListener mOnCompanyListener;
+
+    public CompanyAdapter(@NonNull FirestoreRecyclerOptions<Company> options, onCompanyListener OnCompanyListener) {
         super(options);
+        //sean
+        this.mOnCompanyListener = OnCompanyListener;
     }
 
     @Override
@@ -40,21 +45,40 @@ public class CompanyAdapter extends FirestoreRecyclerAdapter<Company, CompanyAda
     public CompanyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.company_card,
                 parent, false);
-        return new CompanyHolder(v);
+        return new CompanyHolder(v,mOnCompanyListener);
     }
 
-    class CompanyHolder extends RecyclerView.ViewHolder {
+    class CompanyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView companyName, companyLocation, companyNumReviews;
         ImageView companyLogo;
         RatingBar ratingBar;
+        //sean
+        onCompanyListener onCompanyListener;
 
-        public CompanyHolder(@NonNull View itemView) {
+        public CompanyHolder(@NonNull View itemView, onCompanyListener onCompanyListener) {
             super(itemView);
+            //sean
+            this.onCompanyListener = onCompanyListener;
+
             companyName = itemView.findViewById(R.id.company_name);
             companyLocation = itemView.findViewById(R.id.company_location);
             companyNumReviews = itemView.findViewById(R.id.company_num_reviews);
             companyLogo = itemView.findViewById(R.id.company_logo);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+
+            //sean
+            itemView.setOnClickListener(this);
         }
+
+        //sean
+        @Override
+        public void onClick(View v) {
+            onCompanyListener.onCompanyClick(getAbsoluteAdapterPosition());
+        }
+    }
+
+    //sean
+    public interface onCompanyListener{
+        void onCompanyClick(int position);
     }
 }

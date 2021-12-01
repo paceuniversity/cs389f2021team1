@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:layout_margin="10dp"
     android:theme="@style/Theme.MaterialComponents.Light"
-    app:cardBackgroundColor="@color/MatteCharcoal"
     app:cardCornerRadius="15dp"
     app:cardElevation="10dp">
 
@@ -28,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sean Cesario"
                     android:layout_gravity="center"
-                    android:textColor="@color/Milk"
+                    android:textColor="@color/MatteCharcoal"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -42,7 +41,7 @@
                     android:numStars="5"
                     android:rating="0.1"
                     android:stepSize="0.01"
-                    android:theme="@style/Color1RatingBarStyle" />
+                    android:theme="@style/Color2RatingBarStyle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -56,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/small_thumbs_up_icon"
-                        app:tint="@color/Milk"
+                        app:tint="@color/MatteCharcoal"
                         android:paddingRight="10dp"/>
 
                     <ImageView
@@ -65,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="10dp"
                         android:src="@drawable/small_thumbs_down_icon"
-                        app:tint="@color/Milk" />
+                        app:tint="@color/MatteCharcoal" />
                 </LinearLayout>
 
 
@@ -78,7 +77,7 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
                 android:gravity="fill_horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -86,7 +85,7 @@
                     android:text="Ethics"
                     android:textSize="8sp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/Milk" />
+                    android:textColor="@color/MatteCharcoal" />
 
                 <TextView
                     android:id="@+id/ethicsRating"
@@ -103,7 +102,7 @@
                     android:textSize="8sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/Milk" />
+                    android:textColor="@color/MatteCharcoal" />
 
                 <TextView
                     android:id="@+id/environmentalRating"
@@ -117,10 +116,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Leadership"
-                    android:textSize="2sp"
+                    android:textSize="8sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/Milk" />
+                    android:textColor="@color/MatteCharcoal" />
 
                 <TextView
                     android:id="@+id/leadershipRating"
@@ -134,10 +133,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Wage Equality"
-                    android:textSize="2sp"
+                    android:textSize="8sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/Milk" />
+                    android:textColor="@color/MatteCharcoal" />
 
                 <TextView
                     android:id="@+id/wageEqualityRating"
@@ -151,10 +150,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Working Conditions"
-                    android:textSize="2sp"
+                    android:textSize="8sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:textColor="@color/Milk" />
+                    android:textColor="@color/MatteCharcoal" />
 
                 <TextView
                     android:id="@+id/workingConditionsRating"
@@ -172,10 +171,11 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:text="Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities.Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities."
-                android:textColor="@color/Milk"
+                android:textColor="@color/MatteCharcoal"
                 android:textSize="10sp" />
 
             <LinearLayout
+                android:id="@+id/editLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -186,12 +186,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/Milk"
+                    android:textColor="@color/MatteCharcoal"
                     android:text="EDIT"
                     android:textSize="12sp"
                     android:drawableStart="@drawable/small_edit_icon"
                     android:drawablePadding="5dp"
-                    android:drawableTint="@color/Milk"/>
+                    android:drawableTint="@color/MatteCharcoal"/>
             </LinearLayout>
 
         </LinearLayout>

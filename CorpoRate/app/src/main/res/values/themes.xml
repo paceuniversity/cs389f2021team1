@@ -21,4 +21,9 @@
         <item name="colorControlNormal">@color/Milk</item>
         <item name="colorControlActivated">@color/Flare</item>
     </style>
+
+    <style name="Color2RatingBarStyle" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/MatteCharcoal</item>
+        <item name="colorControlActivated">@color/Flare</item>
+    </style>
 </resources>
