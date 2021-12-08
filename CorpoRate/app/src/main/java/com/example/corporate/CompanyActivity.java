@@ -3,6 +3,7 @@ package com.example.corporate;
 import static android.content.ContentValues.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,12 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -56,6 +60,9 @@ public class CompanyActivity extends AppCompatActivity{
     private RecyclerView reviewView;
     private List<Review> reviewList;
     private String cName;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private Button cancelAddReview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +82,7 @@ public class CompanyActivity extends AppCompatActivity{
         avgWorkingConditions = findViewById(R.id.companyWorkingConditionsRating);
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
+
 
         Intent intent = getIntent();
         cName = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
@@ -100,6 +108,7 @@ public class CompanyActivity extends AppCompatActivity{
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         navigationView.setCheckedItem(R.id.nav_home);
     }
+
 
     @Override
     public void onStart() {
@@ -193,5 +202,24 @@ public class CompanyActivity extends AppCompatActivity{
             TransitionManager.beginDelayedTransition(ratingLayout, new AutoTransition());
             ratingLayout.setVisibility(View.GONE);
         }
+    }
+
+    public void addReview(View view){
+       dialogBuilder = new AlertDialog.Builder(this);
+       final View addReviewPopupView = getLayoutInflater().inflate(R.layout.add_review_popup, null);
+
+       cancelAddReview = (Button) addReviewPopupView.findViewById(R.id.cancelAddReviewButton);
+
+       dialogBuilder.setView(addReviewPopupView);
+       dialog = dialogBuilder.create();
+       dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+       dialog.show();
+
+       cancelAddReview.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               dialog.dismiss();
+           }
+       });
     }
 }

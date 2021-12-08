@@ -31,7 +31,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:background="@color/Flare"
             android:padding="20dp">
 
@@ -74,9 +74,10 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/companyReviewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-75dp"
+            android:layout_marginTop="-55dp"
             android:gravity="center"
             android:paddingTop="20dp">
 
@@ -281,37 +282,25 @@
 
         </LinearLayout>
 
-<!--        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/home_reviews_card">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="REVIEWS"
-                android:layout_gravity="center"
-                android:textColor="@color/Milk"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/reviewView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp" />
-
-
-        </LinearLayout>-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reviewView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/company_reviews_card_background"
             android:padding="10dp"
-            android:background="@drawable/home_reviews_card">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/addReview"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/company_add_card_background"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/MatteCharcoal"
+            android:textSize="35dp"
+            android:textStyle="bold"
+            android:onClick="addReview"/>
+
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
