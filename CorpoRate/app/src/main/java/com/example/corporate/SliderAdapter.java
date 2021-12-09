@@ -32,8 +32,8 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_descriptions = {
-            "Sean Cesario: sc65967p@pace.edu\nPrince Paul: pp82735p@pace.edu\n" +
-                    "Geetanjali Kanojia: gk72727p@pace.edu\nCameron Sweeney: cs05178n@pace.edu",
+            "Sean Cesario:\nhttps://github.com/SeanAres\n\nPrince Paul:\nhttps://github.com/ppaul895\n\n" +
+                    "Geetanjali Kanojia:\nhttps://github.com/gkanojia\n\nCameron Sweeney:\nhttps://github.com/cs05178n",
             "Our app aims to hold companies responsible and ensure that the public " +
                     "has a transparent view of how they operate. Users can anonymously rate companies " +
                     "based on various metrics (like environmental sustainability and working conditions) " +
@@ -44,7 +44,7 @@ public class SliderAdapter extends PagerAdapter {
                     "in 2015, are the 17 Sustainable Development Goals (SDGs) which are an urgent call for " +
                     "action by all countries - developed and developing - in a global partnership. Our app " +
                     "focuses on the following:\n\nSDG 5: Gender Equality\nSDG 8: Decent Work and Economic " +
-                    "Growth\nSDG 10: Reduced Inequalities\nSDG13: Climate Action"
+                    "Growth\nSDG 10: Reduced Inequalities\nSDG 13: Climate Action"
     };
 
     @Override

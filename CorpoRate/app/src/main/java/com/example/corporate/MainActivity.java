@@ -145,10 +145,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.startListening();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+        adapter.notifyDataSetChanged();
     }
 
     // Show my Reviews
