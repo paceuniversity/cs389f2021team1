@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
     private final Context mCtx;
@@ -59,7 +61,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
+                    if (document != null && document.exists()){
                         if (!document.getBoolean("anonymous"))
                             holder.username.setText(document.getString("username"));
                         else
@@ -80,10 +82,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.avgLeadership.setText("" + review.getAvgLeadership());
         holder.avgWageEquality.setText("" + review.getAvgWageEquality());
         holder.avgWorkingConditions.setText("" + review.getAvgWorkingConditions());
+        holder.companyName.setText("" + review.getCompany());
+
+        if(mCtx instanceof MainActivity)
+            holder.companyName.setVisibility(View.VISIBLE);
+        else
+            holder.companyName.setVisibility(View.GONE);
 
         if(review.getUID().equals(auth.getCurrentUser().getUid()))
             holder.editButton.setVisibility(View.VISIBLE);
-
 
         holder.reviewCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +107,15 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
             }
         });
+
+        holder.companyName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mCtx, CompanyActivity.class);
+                intent.putExtra("com.example.corporate.MESSAGE", review.getCompany());
+                mCtx.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -108,8 +124,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
     static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions;
-        LinearLayout editButton, subRatingsTop, subRatingsBottom;
+        TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions, editButton, companyName;
+        LinearLayout subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
 
         MaterialCardView reviewCard;
@@ -125,9 +141,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             avgLeadership = itemView.findViewById(R.id.leadershipRating);
             avgWageEquality = itemView.findViewById(R.id.wageEqualityRating);
             avgWorkingConditions = itemView.findViewById(R.id.workingConditionsRating);
-            editButton = itemView.findViewById(R.id.editLayout);
+            editButton = itemView.findViewById(R.id.reviewEditClick);
             subRatingsTop = itemView.findViewById(R.id.reviewSubRatingsTop);
             subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
+            companyName = itemView.findViewById(R.id.reviewCompanyLabel);
 
             reviewCard = itemView.findViewById(R.id.entireReviewCard);
         }
