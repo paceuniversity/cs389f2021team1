@@ -189,23 +189,35 @@
                 android:textSize="10sp" />
 
             <LinearLayout
-                android:id="@+id/editLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="right"
                 android:paddingRight="10dp"
-                 android:visibility="gone">
+                 android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/reviewCompanyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Company"
+                    android:textSize="12sp"
+                    android:textColor="@color/MatteCharcoal"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/reviewEditClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/MatteCharcoal"
-                    android:text="EDIT"
+                    android:text="Edit"
+                    android:textAllCaps="true"
                     android:textSize="12sp"
-                    android:drawableStart="@drawable/small_edit_icon"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:drawableEnd="@drawable/small_edit_icon"
                     android:drawablePadding="5dp"
-                    android:drawableTint="@color/MatteCharcoal"/>
+                    android:drawableTint="@color/MatteCharcoal" />
             </LinearLayout>
 
         </LinearLayout>
