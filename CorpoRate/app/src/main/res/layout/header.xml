@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="175dp"
+    android:layout_height="225dp"
     android:background="@drawable/header_background"
     android:gravity="bottom"
     android:paddingStart="20dp">
@@ -13,7 +13,7 @@
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/circular_border_background"
         android:padding="5dp"
         android:src="@drawable/corporate_logo"

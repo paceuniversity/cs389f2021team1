@@ -17,10 +17,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +44,10 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
     private static final String TAG = "aboutActivity";
     private static final String KEY_NAME_CONTENT= "content";
     private static final String KEY_NAME_UID = "uid";
+    private static final String KEY_NAME_NAME = "name";
+    private static final String KEY_NAME_USERNAME = "username";
+    private static final String KEY_NAME_EMAIL = "email";
+    private String name, username, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +75,28 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
         slideViewPager.setAdapter(sliderAdapter);
         addDotsIndicator(0);
         slideViewPager.addOnPageChangeListener(viewListener);
+
+        // Fetches data from db for add report button
+        DocumentReference docRef = db.collection("Users")
+                .document((Objects.requireNonNull(auth.getCurrentUser()).getUid()));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        name = document.getString("name");
+                        username = document.getString("username");
+                        email = Objects.requireNonNull(auth.getCurrentUser()).getEmail();
+                    } else {
+                        Log.d(TAG, "User Document does not exist.");
+                    }
+                }
+                else {
+                    Log.d(TAG, "Failed to pull from database.", task.getException());
+                }
+            }
+        });
     }
 
     public void addDotsIndicator(int position) {
@@ -109,9 +140,11 @@ public class AboutActivity extends AppCompatActivity implements NavigationView.O
 
         // Create a report to be added
         Map<String, Object> report = new HashMap<>();
-
         report.put(KEY_NAME_CONTENT, reportContent);
         report.put(KEY_NAME_UID, Objects.requireNonNull(auth.getCurrentUser()).getUid());
+        report.put(KEY_NAME_NAME, name);
+        report.put(KEY_NAME_USERNAME, username);
+        report.put(KEY_NAME_EMAIL, email);
 
         // Add report to the database
         db.collection("Reports").document().set(report)
