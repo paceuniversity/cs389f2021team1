@@ -1,7 +1,7 @@
 package com.example.corporate;
 
 public class Review {
-    private String company, UID, reviewText;
+    private String company, UID, reviewText, docID;
     private double avgEnvironmental, avgEthics, avgLeadership, avgRating, avgWageEquality,avgWorkingConditions;
     private int numOfDislikes, numOfLikes;
 
@@ -107,5 +107,13 @@ public class Review {
 
     public void setNumOfLikes(int numOfLikes) {
         this.numOfLikes = numOfLikes;
+    }
+
+    public String getDocID() {
+        return docID;
+    }
+
+    public void setDocID(String docID) {
+        this.docID = docID;
     }
 }

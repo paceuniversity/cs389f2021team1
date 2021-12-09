@@ -34,17 +34,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     private final List<Review> reviewList;
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private onEditListener mOnEditListener;
 
-    public ReviewAdapter(Context mCtx, List<Review> reviewList) {
+    public ReviewAdapter(Context mCtx, List<Review> reviewList, onEditListener mOnEditListener) {
         this.mCtx = mCtx;
         this.reviewList = reviewList;
+        this.mOnEditListener = mOnEditListener;
     }
 
     @NonNull
     @Override
     public ReviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ReviewViewHolder(
-                LayoutInflater.from(mCtx).inflate(R.layout.review_card, parent, false)
+                LayoutInflater.from(mCtx).inflate(R.layout.review_card, parent, false), mOnEditListener
         );
     }
 
@@ -61,7 +63,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()){
+                    if (document != null && document.exists()) {
                         if (!document.getBoolean("anonymous"))
                             holder.username.setText(document.getString("username"));
                         else
@@ -84,13 +86,26 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.avgWorkingConditions.setText("" + review.getAvgWorkingConditions());
         holder.companyName.setText("" + review.getCompany());
 
-        if(mCtx instanceof MainActivity)
+/*        if (mCtx instanceof MainActivity)
             holder.companyName.setVisibility(View.VISIBLE);
         else
             holder.companyName.setVisibility(View.GONE);
 
-        if(review.getUID().equals(auth.getCurrentUser().getUid()))
+        if (review.getUID().equals(auth.getCurrentUser().getUid()))
+            holder.editButton.setVisibility(View.VISIBLE);*/
+
+        if(mCtx instanceof MainActivity){
+            holder.companyName.setVisibility(View.VISIBLE);
+            holder.editButton.setVisibility(View.GONE);
+        }
+        else if(mCtx instanceof CompanyActivity && review.getUID().equals(auth.getCurrentUser().getUid())){
+            holder.companyName.setVisibility(View.GONE);
             holder.editButton.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.companyName.setVisibility(View.GONE);
+            holder.editButton.setVisibility(View.GONE);
+        }
 
         holder.reviewCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +114,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                     holder.subRatingsTop.setVisibility(View.VISIBLE);
                     holder.subRatingsBottom.setVisibility(View.VISIBLE);
                     holder.reviewDesc.setMaxLines(10);
-                }else {
+                } else {
                     holder.subRatingsTop.setVisibility(View.GONE);
                     holder.subRatingsBottom.setVisibility(View.GONE);
                     holder.reviewDesc.setMaxLines(4);
@@ -123,14 +138,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return reviewList.size();
     }
 
-    static class ReviewViewHolder extends RecyclerView.ViewHolder {
+    static class ReviewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions, editButton, companyName;
         LinearLayout subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
-
         MaterialCardView reviewCard;
+        onEditListener onEditListener;
 
-        public ReviewViewHolder(View itemView) {
+        public ReviewViewHolder(View itemView, onEditListener onEditListener) {
             super(itemView);
 
             username = itemView.findViewById(R.id.reviewUserName);
@@ -145,9 +160,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             subRatingsTop = itemView.findViewById(R.id.reviewSubRatingsTop);
             subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
             companyName = itemView.findViewById(R.id.reviewCompanyLabel);
-
             reviewCard = itemView.findViewById(R.id.entireReviewCard);
+            this.onEditListener = onEditListener;
+
+            editButton.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onEditListener.onEditClick(getAbsoluteAdapterPosition());
+        }
+    }
+
+    public interface onEditListener {
+        void onEditClick(int position);
     }
 
 }

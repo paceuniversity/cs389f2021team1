@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, ReviewAdapter.onEditListener{
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private DrawerLayout drawerLayout;
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.setTitle("Home");
 
         myReviewList = new ArrayList<>();
-        reviewAdapter = new ReviewAdapter(this, myReviewList);
+        reviewAdapter = new ReviewAdapter(this, myReviewList, this);
 
         myReviewsView = findViewById(R.id.myReviewsView);
         myReviewsView.setHasFixedSize(true);
@@ -207,4 +207,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    @Override
+    public void onEditClick(int position) {
+    }
 }

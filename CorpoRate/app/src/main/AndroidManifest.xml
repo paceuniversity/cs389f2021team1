@@ -14,7 +14,8 @@
         android:theme="@style/Theme.CorpoRate">
         <activity
             android:name=".CompanyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.CorpoRate"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
