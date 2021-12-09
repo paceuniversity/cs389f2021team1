@@ -26,4 +26,12 @@
         <item name="colorControlNormal">@color/MatteCharcoal</item>
         <item name="colorControlActivated">@color/Flare</item>
     </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert" >
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:background">@color/Milk</item>
+        <item name="android:textColorPrimary">@color/MatteCharcoal</item>
+        <item name="dialogCornerRadius">25dp</item>
+        <item name="android:colorAccent">@color/Flare</item>
+    </style>
 </resources>

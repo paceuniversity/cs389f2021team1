@@ -193,6 +193,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingRight="10dp"
+                android:gravity="right"
                  android:visibility="visible">
 
                 <TextView
@@ -203,7 +204,7 @@
                     android:textSize="12sp"
                     android:textColor="@color/MatteCharcoal"
                     android:textStyle="bold"
-                    android:visibility="gone"/>
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/reviewEditClick"
@@ -213,11 +214,11 @@
                     android:text="Edit"
                     android:textAllCaps="true"
                     android:textSize="12sp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:drawableEnd="@drawable/small_edit_icon"
+                    android:layout_gravity="right"
+                    android:drawableStart="@drawable/small_edit_icon"
                     android:drawablePadding="5dp"
-                    android:drawableTint="@color/MatteCharcoal" />
+                    android:drawableTint="@color/MatteCharcoal"
+                    android:visibility="visible"/>
             </LinearLayout>
 
         </LinearLayout>

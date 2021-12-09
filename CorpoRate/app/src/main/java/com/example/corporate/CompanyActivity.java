@@ -2,17 +2,8 @@ package com.example.corporate;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,6 +20,16 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,7 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CompanyActivity extends AppCompatActivity {
+public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.onEditListener {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DrawerLayout drawerLayout;
@@ -106,7 +107,7 @@ public class CompanyActivity extends AppCompatActivity {
         cName = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
 
         reviewList = new ArrayList<>();
-        adapter = new ReviewAdapter(this, reviewList);
+        adapter = new ReviewAdapter(this, reviewList, this);
 
         reviewView = findViewById(R.id.reviewView);
         reviewView.setHasFixedSize(true);
@@ -166,15 +167,16 @@ public class CompanyActivity extends AppCompatActivity {
         Task<QuerySnapshot> dataQ;
         {
             dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @SuppressLint("NotifyDataSetChanged")
+                @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                         totalReviews.setText(list.size() + "");
-
                         for (DocumentSnapshot d : list) {
                             Review r = d.toObject(Review.class);
+                            assert r != null;
+                            r.setDocID(d.getId());
                             reviewList.add(r);
                         }
                         adapter.notifyDataSetChanged();
@@ -239,6 +241,7 @@ public class CompanyActivity extends AppCompatActivity {
 
         deleteReview.setVisibility(View.GONE);
         addReviewTitle.setText("Add Review");
+        submitAddReview.setText("Add");
 
         dialogBuilder.setView(addReviewPopupView);
         dialog = dialogBuilder.create();
@@ -257,20 +260,20 @@ public class CompanyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Create a new review to be added to the database
                 Map<String, Object> newReview = new HashMap<>();
-                newReview.put("avgEnvironmental", (double)addEnvironmental.getRating());
-                newReview.put("avgEthics", (double)addEthics.getRating());
-                newReview.put("avgLeadership", (double)addLeadership.getRating());
-                newReview.put("avgWageEquality", (double)addWageEquality.getRating());
-                newReview.put("avgWorkingConditions", (double)addWorkingConditions.getRating());
+                newReview.put("avgEnvironmental", (double) addEnvironmental.getRating());
+                newReview.put("avgEthics", (double) addEthics.getRating());
+                newReview.put("avgLeadership", (double) addLeadership.getRating());
+                newReview.put("avgWageEquality", (double) addWageEquality.getRating());
+                newReview.put("avgWorkingConditions", (double) addWorkingConditions.getRating());
 
                 //iterate through map and calculate average overall
                 double overallRating = 0.0;
                 for (Object value : newReview.values()) {
-                    overallRating += (double)value;
+                    overallRating += (double) value;
                 }
                 overallRating /= 5.0;
-
                 newReview.put("avgRating", overallRating);
+
                 newReview.put("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid());
                 newReview.put("company", cName);
                 newReview.put("numOfDislikes", 0);
@@ -282,7 +285,7 @@ public class CompanyActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(CompanyActivity.this,"Review Submitted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CompanyActivity.this, "Review Submitted", Toast.LENGTH_SHORT).show();
 
                                 //update adapter with new review
                                 documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -304,6 +307,7 @@ public class CompanyActivity extends AppCompatActivity {
                                     }
                                 });
 
+                                Toast.makeText(v.getContext(), "Review Submitted", Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "Submitted review with ID" + documentReference.getId());
                                 dialog.dismiss();
                             }
@@ -311,11 +315,153 @@ public class CompanyActivity extends AppCompatActivity {
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(CompanyActivity.this,"Review Submitted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(v.getContext(), "Error please try again", Toast.LENGTH_SHORT).show();
                                 Log.w(TAG, "Error adding document", e);
                                 dialog.dismiss();
                             }
                         });
+            }
+        });
+    }
+
+    //edit review popup handling
+    @Override
+    public void onEditClick(int position) {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View editReviewPopupView = getLayoutInflater().inflate(R.layout.add_review_popup, null);
+
+        cancelAddReview = (Button) editReviewPopupView.findViewById(R.id.cancelAddReviewButton);
+        submitAddReview = (Button) editReviewPopupView.findViewById(R.id.submitAddReviewButton);
+        addEnvironmental = (RatingBar) editReviewPopupView.findViewById(R.id.addReviewEnvironmentalInput);
+        addEthics = (RatingBar) editReviewPopupView.findViewById(R.id.addReviewEthicsInput);
+        addLeadership = (RatingBar) editReviewPopupView.findViewById(R.id.addReviewLeadershipInput);
+        addWageEquality = (RatingBar) editReviewPopupView.findViewById(R.id.addReviewWageEqualityInput);
+        addWorkingConditions = (RatingBar) editReviewPopupView.findViewById(R.id.addReviewWorkingConditionsInput);
+        addDescription = (EditText) editReviewPopupView.findViewById(R.id.addReviewTextInput);
+        deleteReview = (TextView) editReviewPopupView.findViewById(R.id.addReviewDeleteClick);
+        addReviewTitle = (TextView) editReviewPopupView.findViewById(R.id.addReviewTitle);
+
+        //set data
+        Review thisReview = reviewList.get(position);
+        addEnvironmental.setRating((float) thisReview.getAvgEnvironmental());
+        addEthics.setRating((float) thisReview.getAvgEthics());
+        addLeadership.setRating((float) thisReview.getAvgLeadership());
+        addWageEquality.setRating((float) thisReview.getAvgWageEquality());
+        addWorkingConditions.setRating((float) thisReview.getAvgWorkingConditions());
+        addDescription.setText(thisReview.getReviewText());
+        deleteReview.setVisibility(View.VISIBLE);
+        addReviewTitle.setText("Edit Review");
+        submitAddReview.setText("Edit");
+
+        dialogBuilder.setView(editReviewPopupView);
+        dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        cancelAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        submitAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set new data
+                // Create a new review to be added to the database
+                Map<String, Object> editedReview = new HashMap<>();
+                editedReview.put("avgEnvironmental", (double) addEnvironmental.getRating());
+                editedReview.put("avgEthics", (double) addEthics.getRating());
+                editedReview.put("avgLeadership", (double) addLeadership.getRating());
+                editedReview.put("avgWageEquality", (double) addWageEquality.getRating());
+                editedReview.put("avgWorkingConditions", (double) addWorkingConditions.getRating());
+
+                //iterate through map and calculate average overall
+                double overallRating = 0.0;
+                for (Object value : editedReview.values()) {
+                    overallRating += (double) value;
+                }
+                overallRating /= 5.0;
+                editedReview.put("avgRating", overallRating);
+
+                editedReview.put("UID", thisReview.getUID());
+                editedReview.put("company", thisReview.getCompany());
+                editedReview.put("numOfDislikes", thisReview.getNumOfDislikes());
+                editedReview.put("numOfLikes", thisReview.getNumOfLikes());
+
+                editedReview.put("reviewText", addDescription.getText().toString());
+
+                double finalOverallRating = overallRating;
+                db.collection("Reviews").document(thisReview.getDocID()).set(editedReview).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onSuccess(Void unused) {
+                        thisReview.setAvgEnvironmental((double) Objects.requireNonNull(editedReview.get("avgEnvironmental")));
+                        thisReview.setAvgEthics((double) Objects.requireNonNull(editedReview.get("avgEthics")));
+                        thisReview.setAvgLeadership((double) Objects.requireNonNull(editedReview.get("avgLeadership")));
+                        thisReview.setAvgWageEquality((double) Objects.requireNonNull(editedReview.get("avgWageEquality")));
+                        thisReview.setAvgWorkingConditions((double) Objects.requireNonNull(editedReview.get("avgWorkingConditions")));
+                        thisReview.setAvgRating(finalOverallRating);
+                        thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
+                        Toast.makeText(v.getContext(), "Review Edited", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Review edited with id" + thisReview.getDocID());
+                        adapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(v.getContext(), "Error please try again", Toast.LENGTH_SHORT).show();
+                        Log.w(TAG, "Error editing document", e);
+                        dialog.dismiss();
+                    }
+                });
+
+
+            }
+        });
+
+
+        deleteReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogAlert, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                db.collection("Reviews").document(thisReview.getDocID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @SuppressLint("NotifyDataSetChanged")
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(CompanyActivity.this, "Review Deleted", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "Review deleted");
+                                        reviewList.remove(position);
+                                        adapter.notifyDataSetChanged();
+                                        dialog.dismiss();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(v.getContext(), "Error please try again", Toast.LENGTH_SHORT).show();
+                                        Log.w(TAG, "Error deleting document", e);
+                                        dialog.dismiss();
+                                    }
+                                });
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //no
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext(), R.style.AlertDialogTheme);
+                builder.setMessage("Are you sure you want to delete this review?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
             }
         });
     }
