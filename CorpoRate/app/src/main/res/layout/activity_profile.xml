@@ -31,7 +31,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:background="@color/Flare"
             android:padding="20dp">
 
@@ -53,7 +53,7 @@
                 android:layout_toEndOf="@+id/logo"
                 android:includeFontPadding="false"
                 android:text="Name"
-                android:textColor="@color/MatteCharcoal"
+                android:textColor="@color/Milk"
                 android:textSize="28sp"
                 android:textStyle="bold" />
 
@@ -66,7 +66,7 @@
                 android:layout_toEndOf="@id/logo"
                 android:includeFontPadding="false"
                 android:text="Username"
-                android:textColor="@color/MatteCharcoal"
+                android:textColor="@color/Milk"
                 android:textSize="16sp" />
 
         </RelativeLayout>
@@ -74,14 +74,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-75dp"
+            android:layout_marginTop="-55dp"
             android:gravity="center"
             android:paddingTop="20dp"
             android:paddingBottom="10dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="200dp"
-                android:layout_height="125dp"
+                android:layout_width="175dp"
+                android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:cardBackgroundColor="@color/MatteCharcoal"
@@ -93,24 +93,19 @@
                     android:layout_height="match_parent"
                     android:padding="5dp">
 
-                    <ImageView
-                        android:id="@+id/reviewsIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/small_reviews_icon" />
-
                     <TextView
                         android:id="@+id/numOfReviews"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:includeFontPadding="false"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:drawablePadding="10dp"
                         android:text="0"
                         android:textColor="@color/Milk"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/small_reviews_icon"
+                        app:drawableTint="@color/Milk" />
 
                     <TextView
                         android:id="@+id/numOfReviewsLabel"
@@ -118,10 +113,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/numOfReviews"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="6dp"
                         android:includeFontPadding="false"
                         android:text="Reviews"
                         android:textColor="@color/Milk"
-                        android:textSize="14sp" />
+                        android:textSize="15sp" />
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -153,7 +149,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Name"
                 app:hintTextColor="@color/Flare">
 
@@ -175,7 +172,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Username"
                 app:hintTextColor="@color/Flare">
 
@@ -197,7 +194,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:enabled="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -218,7 +215,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="20dp"
                 android:enabled="false"
                 android:hint="Password">
 
