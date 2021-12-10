@@ -195,14 +195,17 @@
         android:inputType="textMultiLine"
         android:hint="Write your review here..."
         android:gravity="top"
-        android:textColorHint="@color/Milk"
         android:background="@drawable/edit_text_background"
-        android:textColor="@color/Milk"
+        android:backgroundTint="#ffffff"
+        android:textSize="14sp"
         android:scrollHorizontally="false"
         android:lines="6"
         android:maxLines="6"
         android:singleLine="true"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
+        android:textColorHighlight="#D3D3D3"/>
 
     <TextView
         android:id="@+id/addReviewDeleteClick"

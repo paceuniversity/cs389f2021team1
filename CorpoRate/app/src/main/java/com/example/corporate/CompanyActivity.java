@@ -349,9 +349,10 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         addWageEquality.setRating((float) thisReview.getAvgWageEquality());
         addWorkingConditions.setRating((float) thisReview.getAvgWorkingConditions());
         addDescription.setText(thisReview.getReviewText());
+        addDescription.setSelection(addDescription.getText().length());
         deleteReview.setVisibility(View.VISIBLE);
         addReviewTitle.setText("Edit Review");
-        submitAddReview.setText("Edit");
+        submitAddReview.setText("Update");
 
         dialogBuilder.setView(editReviewPopupView);
         dialog = dialogBuilder.create();
@@ -404,7 +405,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                         thisReview.setAvgWorkingConditions((double) Objects.requireNonNull(editedReview.get("avgWorkingConditions")));
                         thisReview.setAvgRating(finalOverallRating);
                         thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
-                        Toast.makeText(v.getContext(), "Review Edited", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "Review Updated!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Review edited with id" + thisReview.getDocID());
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
@@ -412,16 +413,13 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(v.getContext(), "Error please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(v.getContext(), "Error, please try again!", Toast.LENGTH_SHORT).show();
                         Log.w(TAG, "Error editing document", e);
                         dialog.dismiss();
                     }
                 });
-
-
             }
         });
-
 
         deleteReview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -436,7 +434,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                     @SuppressLint("NotifyDataSetChanged")
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(CompanyActivity.this, "Review Deleted", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CompanyActivity.this, "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
                                         reviewList.remove(position);
                                         adapter.notifyDataSetChanged();
@@ -445,7 +443,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(v.getContext(), "Error please try again", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(v.getContext(), "Error, please try again!", Toast.LENGTH_SHORT).show();
                                         Log.w(TAG, "Error deleting document", e);
                                         dialog.dismiss();
                                     }
