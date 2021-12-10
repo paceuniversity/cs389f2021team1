@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/Flare</item>
         <item name="colorPrimaryDark">@color/MatteCharcoal</item>
         <item name="colorAccent">@color/Milk</item>
+        <item name="colorControlActivated">@color/Flare</item>
         <item name="android:statusBarColor">@color/Flare</item>
     </style>
 

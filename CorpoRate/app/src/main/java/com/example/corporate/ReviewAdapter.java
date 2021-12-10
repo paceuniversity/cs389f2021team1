@@ -86,15 +86,18 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.avgWorkingConditions.setText("" + review.getAvgWorkingConditions());
         holder.companyName.setText("" + review.getCompany());
 
-/*        if (mCtx instanceof MainActivity)
+        if (mCtx instanceof MainActivity)
             holder.companyName.setVisibility(View.VISIBLE);
         else
             holder.companyName.setVisibility(View.GONE);
 
         if (review.getUID().equals(auth.getCurrentUser().getUid()))
-            holder.editButton.setVisibility(View.VISIBLE);*/
+            holder.editButton.setVisibility(View.VISIBLE);
+        else
+            holder.editButton.setVisibility(View.GONE);
 
-        if(mCtx instanceof MainActivity){
+
+        /*if(mCtx instanceof MainActivity){
             holder.companyName.setVisibility(View.VISIBLE);
             holder.editButton.setVisibility(View.GONE);
         }
@@ -105,7 +108,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         else{
             holder.companyName.setVisibility(View.GONE);
             holder.editButton.setVisibility(View.GONE);
-        }
+        }*/
 
         holder.reviewCard.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ethics"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:paddingRight="5dp"
                     android:textColor="@color/MatteCharcoal" />
 
@@ -95,14 +95,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4.66"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:textColor="@color/Flare" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Environmental"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/MatteCharcoal" />
@@ -112,14 +112,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.21"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:textColor="@color/Flare" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Leadership"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:textColor="@color/MatteCharcoal" />
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.21"
-                    android:textSize="8sp"
+                    android:textSize="12sp"
                     android:textColor="@color/Flare" />
             </LinearLayout>
 
@@ -147,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wage Equality"
-                android:textSize="8sp"
+                android:textSize="12sp"
                 android:paddingRight="5dp"
                 android:textColor="@color/MatteCharcoal" />
 
@@ -156,14 +156,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3.21"
-                android:textSize="8sp"
+                android:textSize="12sp"
                 android:textColor="@color/Flare" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Working Conditions"
-                android:textSize="8sp"
+                android:textSize="12sp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="@color/MatteCharcoal" />
@@ -173,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3.21"
-                android:textSize="8sp"
+                android:textSize="12sp"
                 android:textColor="@color/Flare" />
     </LinearLayout>
 
@@ -186,23 +186,23 @@
                 android:maxLines="4"
                 android:text="Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities.Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities."
                 android:textColor="@color/MatteCharcoal"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingRight="10dp"
-                android:gravity="right"
-                 android:visibility="visible">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/reviewCompanyLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
                     android:text="Company"
-                    android:textSize="12sp"
                     android:textColor="@color/MatteCharcoal"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility="visible" />
 
@@ -210,16 +210,16 @@
                     android:id="@+id/reviewEditClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/MatteCharcoal"
-                    android:text="Edit"
-                    android:textAllCaps="true"
-                    android:textSize="12sp"
-                    android:layout_gravity="right"
+                    android:layout_alignParentRight="true"
                     android:drawableStart="@drawable/small_edit_icon"
                     android:drawablePadding="5dp"
                     android:drawableTint="@color/MatteCharcoal"
-                    android:visibility="visible"/>
-            </LinearLayout>
+                    android:text="Edit"
+                    android:textAllCaps="true"
+                    android:textColor="@color/MatteCharcoal"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
         </LinearLayout>
 
