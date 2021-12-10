@@ -434,7 +434,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                     @SuppressLint("NotifyDataSetChanged")
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(CompanyActivity.this, "Review Deleted!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(v.getContext(), "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
                                         reviewList.remove(position);
                                         adapter.notifyDataSetChanged();

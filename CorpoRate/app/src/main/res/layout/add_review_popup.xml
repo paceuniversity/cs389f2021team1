@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/company_add_review_background"
     android:padding="20dp"
+    android:elevation="20dp"
     android:orientation="vertical">
 
     <TextView
@@ -195,8 +196,11 @@
         android:inputType="textMultiLine"
         android:hint="Write your review here..."
         android:gravity="top"
+        android:elevation="15dp"
         android:background="@drawable/edit_text_background"
-        android:backgroundTint="#ffffff"
+        android:backgroundTint="#FFFF"
+        android:textColorHint="#BF38424B"
+        android:textColor="@color/MatteCharcoal"
         android:textSize="14sp"
         android:scrollHorizontally="false"
         android:lines="6"
