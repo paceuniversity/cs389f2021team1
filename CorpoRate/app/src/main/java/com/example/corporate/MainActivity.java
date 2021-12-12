@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -75,6 +76,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private EditText addDescription;
     private TextView deleteReview;
     private TextView addReviewTitle;
+
+    private double cAvgRating = 0.0;
+    private double cAvgEthics = 0.0;
+    private double cAvgEnvironmental = 0.0;
+    private double cAvgLeadership = 0.0;
+    private double cAvgWageEquality = 0.0;
+    private double cAvgWorkingConditions = 0.0;
+    private int cTotalReviews = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +140,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        // Show my Reviews
+        Task<QuerySnapshot> dataQ;
+        {
+            dataQ = db.collection("Reviews").whereEqualTo("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot d : list) {
+                            Review r = d.toObject(Review.class);
+                            assert r != null;
+                            r.setDocID(d.getId());
+                            myReviewList.add(r);
+                        }
+                        reviewAdapter.notifyDataSetChanged();
+                    } else{
+                        Log.d(TAG, "Empty");
+                    }
+                }
+            });
+        }
     }
 
     /** Sets up the Recycler View */
@@ -178,29 +211,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.notifyDataSetChanged();
     }
 
-    // Show my Reviews
-    Task<QuerySnapshot> dataQ;
-    {
-        dataQ = db.collection("Reviews").whereEqualTo("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    for (DocumentSnapshot d : list) {
-                        Review r = d.toObject(Review.class);
-                        assert r != null;
-                        r.setDocID(d.getId());
-                        myReviewList.add(r);
-                    }
-                    reviewAdapter.notifyDataSetChanged();
-                }
-                else{
-                    Log.d(TAG, "Empty");
-                }
-            }
-        });
-    }
+
 
     /** Called when the user taps the Search button */
     public void openSearchResults(View view) {
@@ -318,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
                         Toast.makeText(v.getContext(), "Review Updated!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Review edited with id" + thisReview.getDocID());
+                        refreshCompanyRatings(position);
                         reviewAdapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
@@ -345,8 +357,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     @SuppressLint("NotifyDataSetChanged")
                                     @Override
                                     public void onSuccess(Void unused) {
+                                        db.collection("Users").document(Objects.requireNonNull(auth.getCurrentUser()).getUid()).update("numOfReviews", FieldValue.increment(-1));
                                         Toast.makeText(v.getContext(), "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
+                                        refreshCompanyRatings(position);
                                         myReviewList.remove(position);
                                         reviewAdapter.notifyDataSetChanged();
                                         dialog.dismiss();
@@ -373,5 +387,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
+    }
+
+    public void refreshCompanyRatings(int position){
+        String cName = myReviewList.get(position).getCompany();
+        cAvgRating = 0.0;
+        cAvgEthics = 0.0;
+        cAvgEnvironmental = 0.0;
+        cAvgLeadership = 0.0;
+        cAvgWageEquality = 0.0;
+        cAvgWorkingConditions = 0.0;
+        cTotalReviews = 0;
+
+        Task<QuerySnapshot> dataQ;
+        {
+            dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot d : list) {
+                            Review r = d.toObject(Review.class);
+                            assert r != null;
+                            cAvgRating += r.getAvgRating();
+                            cAvgEthics += r.getAvgEthics();
+                            cAvgEnvironmental += r.getAvgEnvironmental();
+                            cAvgLeadership += r.getAvgLeadership();
+                            cAvgWageEquality += r.getAvgWageEquality();
+                            cAvgWorkingConditions += r.getAvgWorkingConditions();
+                        }
+                        cAvgRating /= list.size();
+                        cAvgEthics /= list.size();
+                        cAvgEnvironmental /= list.size();
+                        cAvgLeadership /= list.size();
+                        cAvgWageEquality /= list.size();
+                        cAvgWorkingConditions /= list.size();
+                        cTotalReviews = list.size();
+
+                        db.collection("Companies").document(cName).update("avgRating", cAvgRating);
+                        db.collection("Companies").document(cName).update("avgEthics", cAvgEthics);
+                        db.collection("Companies").document(cName).update("avgEnvironmental", cAvgEnvironmental);
+                        db.collection("Companies").document(cName).update("avgLeadership", cAvgLeadership);
+                        db.collection("Companies").document(cName).update("avgWageEquality", cAvgWageEquality);
+                        db.collection("Companies").document(cName).update("avgWorkingConditions", cAvgWorkingConditions);
+                        db.collection("Companies").document(cName).update("numOfReviews", cTotalReviews);
+
+                    } else {
+                        db.collection("Companies").document(cName).update("avgRating", 0);
+                        db.collection("Companies").document(cName).update("avgEthics", 0);
+                        db.collection("Companies").document(cName).update("avgEnvironmental", 0);
+                        db.collection("Companies").document(cName).update("avgLeadership", 0);
+                        db.collection("Companies").document(cName).update("avgWageEquality", 0);
+                        db.collection("Companies").document(cName).update("avgWorkingConditions", 0);
+                        db.collection("Companies").document(cName).update("numOfReviews", 0);
+
+                        Log.d(TAG, "Empty");
+                    }
+                }
+            });
+        }
     }
 }

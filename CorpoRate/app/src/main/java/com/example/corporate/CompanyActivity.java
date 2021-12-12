@@ -40,6 +40,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -70,6 +71,8 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
     private RecyclerView reviewView;
     private List<Review> reviewList;
     private String cName;
+    private String cLocation;
+    private String cLogo;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Button cancelAddReview;
@@ -82,6 +85,14 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
     private EditText addDescription;
     private TextView deleteReview;
     private TextView addReviewTitle;
+
+    private double cAvgRating = 0.0;
+    private double cAvgEthics = 0.0;
+    private double cAvgEnvironmental = 0.0;
+    private double cAvgLeadership = 0.0;
+    private double cAvgWageEquality = 0.0;
+    private double cAvgWorkingConditions = 0.0;
+    private int cTotalReviews = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +112,6 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         avgWorkingConditions = findViewById(R.id.companyWorkingConditionsRating);
         totalReviews = findViewById(R.id.totalCompanyReviews);
         ratingLayout = findViewById(R.id.companyRatingDetails);
-
 
         Intent intent = getIntent();
         cName = intent.getStringExtra(SearchActivity.EXTRA_MESSAGE);
@@ -126,42 +136,6 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         navigationView.setCheckedItem(R.id.nav_home);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // Show All Company Data
-        DocumentReference docRef = db.collection("Companies")
-                .document(cName);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
-                        companyName.setText(cName);
-                        companyLocation.setText(document.getString("location"));
-                        avgRating.setRating(Objects.requireNonNull(document.getDouble("avgRating")).floatValue());
-                        avgEthics.setText(Objects.requireNonNull(document.getDouble("avgEthics").toString()));
-                        avgEnvironmental.setText(Objects.requireNonNull(document.getDouble("avgEnvironmental").toString()));
-                        avgLeadership.setText(Objects.requireNonNull(document.getDouble("avgLeadership").toString()));
-                        avgWageEquality.setText(Objects.requireNonNull(document.getDouble("avgWageEquality").toString()));
-                        avgWorkingConditions.setText(Objects.requireNonNull(document.getDouble("avgWorkingConditions").toString()));
-
-                        Glide.with(companyLogo.getContext()).load(document.getString("logo"))
-                                .fitCenter().placeholder(companyLogo.getDrawable()).into(companyLogo);
-                    } else {
-                        Log.d(TAG, "Document does not exist.");
-                    }
-                } else {
-                    Log.d(TAG, "Failed to pull from database.", task.getException());
-                }
-            }
-        });
 
         // Show all Reviews
         Task<QuerySnapshot> dataQ;
@@ -186,6 +160,30 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                 }
             });
         }
+        refreshCompanyRatings();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Show All Company Data
+        companyName.setText(cName);
+
+        db.collection("Companies").document(cName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                companyLocation.setText(documentSnapshot.getString("location"));
+                Glide.with(companyLogo.getContext()).load(documentSnapshot.getString("logo"))
+                        .fitCenter().placeholder(companyLogo.getDrawable()).into(companyLogo);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Empty");
+            }
+        });
     }
 
     //drawer nav handling
@@ -296,7 +294,11 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                             DocumentSnapshot newReviewDoc = task.getResult();
                                             if (newReviewDoc != null && newReviewDoc.exists()) {
                                                 Review r = newReviewDoc.toObject(Review.class);
+                                                assert r != null;
+                                                r.setDocID(newReviewDoc.getId());
                                                 reviewList.add(r);
+                                                db.collection("Users").document(Objects.requireNonNull(auth.getCurrentUser()).getUid()).update("numOfReviews", FieldValue.increment(1));
+                                                refreshCompanyRatings();
                                                 adapter.notifyDataSetChanged();
                                             } else {
                                                 Log.d(TAG, "Document does not exist.");
@@ -407,6 +409,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                         thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
                         Toast.makeText(v.getContext(), "Review Updated!", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Review edited with id" + thisReview.getDocID());
+                        refreshCompanyRatings();
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
@@ -434,9 +437,11 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                     @SuppressLint("NotifyDataSetChanged")
                                     @Override
                                     public void onSuccess(Void unused) {
+                                        db.collection("Users").document(Objects.requireNonNull(auth.getCurrentUser()).getUid()).update("numOfReviews", FieldValue.increment(-1));
                                         Toast.makeText(v.getContext(), "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
                                         reviewList.remove(position);
+                                        refreshCompanyRatings();
                                         adapter.notifyDataSetChanged();
                                         dialog.dismiss();
                                     }
@@ -462,5 +467,80 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
+    }
+
+    public void refreshCompanyRatings(){
+        cAvgRating = 0.0;
+        cAvgEthics = 0.0;
+        cAvgEnvironmental = 0.0;
+        cAvgLeadership = 0.0;
+        cAvgWageEquality = 0.0;
+        cAvgWorkingConditions = 0.0;
+        cTotalReviews = 0;
+
+        Task<QuerySnapshot> dataQ;
+        {
+            dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot d : list) {
+                            Review r = d.toObject(Review.class);
+                            assert r != null;
+                            cAvgRating += r.getAvgRating();
+                            cAvgEthics += r.getAvgEthics();
+                            cAvgEnvironmental += r.getAvgEnvironmental();
+                            cAvgLeadership += r.getAvgLeadership();
+                            cAvgWageEquality += r.getAvgWageEquality();
+                            cAvgWorkingConditions += r.getAvgWorkingConditions();
+                        }
+                        cAvgRating /= list.size();
+                        cAvgEthics /= list.size();
+                        cAvgEnvironmental /= list.size();
+                        cAvgLeadership /= list.size();
+                        cAvgWageEquality /= list.size();
+                        cAvgWorkingConditions /= list.size();
+                        cTotalReviews = list.size();
+
+                        db.collection("Companies").document(cName).update("avgRating", cAvgRating);
+                        db.collection("Companies").document(cName).update("avgEthics", cAvgEthics);
+                        db.collection("Companies").document(cName).update("avgEnvironmental", cAvgEnvironmental);
+                        db.collection("Companies").document(cName).update("avgLeadership", cAvgLeadership);
+                        db.collection("Companies").document(cName).update("avgWageEquality", cAvgWageEquality);
+                        db.collection("Companies").document(cName).update("avgWorkingConditions", cAvgWorkingConditions);
+                        db.collection("Companies").document(cName).update("numOfReviews", cTotalReviews);
+
+                        avgRating.setRating((float)cAvgRating);
+                        avgEthics.setText((Double.toString(cAvgEthics)));
+                        avgEnvironmental.setText((Double.toString(cAvgEnvironmental)));
+                        avgLeadership.setText((Double.toString(cAvgLeadership)));
+                        avgWageEquality.setText((Double.toString(cAvgWageEquality)));
+                        avgWorkingConditions.setText((Double.toString(cAvgWorkingConditions)));
+                        totalReviews.setText(cTotalReviews + "");
+
+                    } else {
+                        db.collection("Companies").document(cName).update("avgRating", 0);
+                        db.collection("Companies").document(cName).update("avgEthics", 0);
+                        db.collection("Companies").document(cName).update("avgEnvironmental", 0);
+                        db.collection("Companies").document(cName).update("avgLeadership", 0);
+                        db.collection("Companies").document(cName).update("avgWageEquality", 0);
+                        db.collection("Companies").document(cName).update("avgWorkingConditions", 0);
+                        db.collection("Companies").document(cName).update("numOfReviews", 0);
+
+                        avgRating.setRating((float)0);
+                        avgEthics.setText("0");
+                        avgEnvironmental.setText("0");
+                        avgLeadership.setText("0");
+                        avgWageEquality.setText("0");
+                        avgWorkingConditions.setText("0");
+                        totalReviews.setText("0");
+
+                        Log.d(TAG, "Empty");
+                    }
+                }
+            });
+        }
     }
 }

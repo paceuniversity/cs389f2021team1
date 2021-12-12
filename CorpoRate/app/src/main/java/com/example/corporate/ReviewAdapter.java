@@ -1,7 +1,6 @@
 package com.example.corporate;
 
 import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -96,21 +95,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         else
             holder.editButton.setVisibility(View.GONE);
 
-
-        /*if(mCtx instanceof MainActivity){
-            holder.companyName.setVisibility(View.VISIBLE);
-            holder.editButton.setVisibility(View.GONE);
-        }
-        else if(mCtx instanceof CompanyActivity && review.getUID().equals(auth.getCurrentUser().getUid())){
-            holder.companyName.setVisibility(View.GONE);
-            holder.editButton.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.companyName.setVisibility(View.GONE);
-            holder.editButton.setVisibility(View.GONE);
-        }*/
-
-        holder.reviewCard.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (holder.subRatingsTop.getVisibility() == View.GONE) {
@@ -145,7 +130,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions, editButton, companyName;
         LinearLayout subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
-        MaterialCardView reviewCard;
         onEditListener onEditListener;
 
         public ReviewViewHolder(View itemView, onEditListener onEditListener) {
@@ -163,7 +147,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             subRatingsTop = itemView.findViewById(R.id.reviewSubRatingsTop);
             subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
             companyName = itemView.findViewById(R.id.reviewCompanyLabel);
-            reviewCard = itemView.findViewById(R.id.entireReviewCard);
             this.onEditListener = onEditListener;
 
             editButton.setOnClickListener(this);
@@ -173,10 +156,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public void onClick(View v) {
             onEditListener.onEditClick(getAbsoluteAdapterPosition());
         }
+
     }
 
     public interface onEditListener {
         void onEditClick(int position);
     }
+
 
 }
