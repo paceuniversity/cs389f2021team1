@@ -57,7 +57,7 @@
 * [**Scrums**](https://docs.google.com/document/d/1nl4T121olD4LH0C9ZGIqezapmEDHWRBbO4GQvgiKdhI/edit)
 * Sprint Demo
 * APK
-* Sprint Retrospective
+* [**Sprint Retrospective**](https://docs.google.com/document/d/1IXkBoMQr4Ise_Eac5XAxuj34Q_i_5UbdIlVjhv8Pf8g/edit?usp=sharing)
 
 # Final Presentation
 **Presentation**
