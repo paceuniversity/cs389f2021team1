@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -298,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         deleteReview.setVisibility(View.VISIBLE);
         addReviewTitle.setText("Edit Review");
         submitAddReview.setText("Update");
+        String cName = thisReview.getCompany();
 
         dialogBuilder.setView(editReviewPopupView);
         dialog = dialogBuilder.create();
@@ -314,53 +316,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         submitAddReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Set new data
-                // Create a new review to be added to the database
-                Map<String, Object> editedReview = new HashMap<>();
-                editedReview.put("avgEnvironmental", (double) addEnvironmental.getRating());
-                editedReview.put("avgEthics", (double) addEthics.getRating());
-                editedReview.put("avgLeadership", (double) addLeadership.getRating());
-                editedReview.put("avgWageEquality", (double) addWageEquality.getRating());
-                editedReview.put("avgWorkingConditions", (double) addWorkingConditions.getRating());
+                if (addEnvironmental.getRating() == 0 || addEthics.getRating() == 0 || addLeadership.getRating() == 0 || addWageEquality.getRating() == 0 || addWorkingConditions.getRating() == 0)
+                    Toast.makeText(v.getContext(), "Ratings cannot be 0", Toast.LENGTH_SHORT).show();
+                else if (TextUtils.isEmpty(addDescription.getText()))
+                    addDescription.setError("Enter a few lines about " + cName);
+                else {
+                    // Set new data
+                    // Create a new review to be added to the database
+                    Map<String, Object> editedReview = new HashMap<>();
+                    editedReview.put("avgEnvironmental", (double) addEnvironmental.getRating());
+                    editedReview.put("avgEthics", (double) addEthics.getRating());
+                    editedReview.put("avgLeadership", (double) addLeadership.getRating());
+                    editedReview.put("avgWageEquality", (double) addWageEquality.getRating());
+                    editedReview.put("avgWorkingConditions", (double) addWorkingConditions.getRating());
 
-                //iterate through map and calculate average overall
-                double overallRating = 0.0;
-                for (Object value : editedReview.values()) {
-                    overallRating += (double) value;
+                    //iterate through map and calculate average overall
+                    double overallRating = 0.0;
+                    for (Object value : editedReview.values()) {
+                        overallRating += (double) value;
+                    }
+                    overallRating /= 5.0;
+                    editedReview.put("avgRating", overallRating);
+                    editedReview.put("UID", thisReview.getUID());
+                    editedReview.put("company", thisReview.getCompany());
+                    editedReview.put("numOfLikes", thisReview.getNumOfLikes());
+                    editedReview.put("reviewText", addDescription.getText().toString());
+
+                    double finalOverallRating = overallRating;
+                    db.collection("Reviews").document(thisReview.getDocID()).set(editedReview).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onSuccess(Void unused) {
+                            thisReview.setAvgEnvironmental((double) Objects.requireNonNull(editedReview.get("avgEnvironmental")));
+                            thisReview.setAvgEthics((double) Objects.requireNonNull(editedReview.get("avgEthics")));
+                            thisReview.setAvgLeadership((double) Objects.requireNonNull(editedReview.get("avgLeadership")));
+                            thisReview.setAvgWageEquality((double) Objects.requireNonNull(editedReview.get("avgWageEquality")));
+                            thisReview.setAvgWorkingConditions((double) Objects.requireNonNull(editedReview.get("avgWorkingConditions")));
+                            thisReview.setAvgRating(finalOverallRating);
+                            thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
+                            Toast.makeText(v.getContext(), "Review Updated!", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "Review edited with id" + thisReview.getDocID());
+                            refreshCompanyRatings(position);
+                            reviewAdapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(v.getContext(), "Error, please try again!", Toast.LENGTH_SHORT).show();
+                            Log.w(TAG, "Error editing document", e);
+                            dialog.dismiss();
+                        }
+                    });
                 }
-                overallRating /= 5.0;
-                editedReview.put("avgRating", overallRating);
-                editedReview.put("UID", thisReview.getUID());
-                editedReview.put("company", thisReview.getCompany());
-                editedReview.put("numOfLikes", thisReview.getNumOfLikes());
-                editedReview.put("reviewText", addDescription.getText().toString());
-
-                double finalOverallRating = overallRating;
-                db.collection("Reviews").document(thisReview.getDocID()).set(editedReview).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onSuccess(Void unused) {
-                        thisReview.setAvgEnvironmental((double) Objects.requireNonNull(editedReview.get("avgEnvironmental")));
-                        thisReview.setAvgEthics((double) Objects.requireNonNull(editedReview.get("avgEthics")));
-                        thisReview.setAvgLeadership((double) Objects.requireNonNull(editedReview.get("avgLeadership")));
-                        thisReview.setAvgWageEquality((double) Objects.requireNonNull(editedReview.get("avgWageEquality")));
-                        thisReview.setAvgWorkingConditions((double) Objects.requireNonNull(editedReview.get("avgWorkingConditions")));
-                        thisReview.setAvgRating(finalOverallRating);
-                        thisReview.setReviewText(Objects.requireNonNull(editedReview.get("reviewText")).toString());
-                        Toast.makeText(v.getContext(), "Review Updated!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Review edited with id" + thisReview.getDocID());
-                        refreshCompanyRatings(position);
-                        reviewAdapter.notifyDataSetChanged();
-                        dialog.dismiss();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(v.getContext(), "Error, please try again!", Toast.LENGTH_SHORT).show();
-                        Log.w(TAG, "Error editing document", e);
-                        dialog.dismiss();
-                    }
-                });
             }
         });
 
