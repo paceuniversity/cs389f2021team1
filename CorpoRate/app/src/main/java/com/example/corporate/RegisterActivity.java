@@ -25,7 +25,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -121,11 +124,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 // Create a new user to be added to the database
                                 Map<String, Object> newUser = new HashMap<>();
+                                //List<String>[] likedReviews = new List[0];
+                                String[] likedReviews = new String[0];
                                 newUser.put("name", name);
                                 newUser.put("username", username);
                                 newUser.put("lengthOfPassword", lengthOfPassword);
                                 newUser.put("numOfReviews", 0);
                                 newUser.put("anonymous", false);
+                                newUser.put("likedReviews", Arrays.asList(likedReviews));
 
                                 // Add the new user to the database
                                 db.collection("Users").document(user.getUid()).set(newUser)

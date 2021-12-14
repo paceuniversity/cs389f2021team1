@@ -4,12 +4,10 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -18,13 +16,16 @@ import android.widget.ToggleButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
+import java.util.Objects;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
     private final Context mCtx;
@@ -84,6 +85,28 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         holder.companyName.setText("" + review.getCompany());
         holder.numOfLikesLabel.setText("" + review.getNumOfLikes());
 
+        //set like button state
+        DocumentReference docRef1 = db.collection("Users")
+                .document((Objects.requireNonNull(auth.getCurrentUser()).getUid()));
+        docRef1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        List<String> likedReviewsList = (List<String>) document.get("likedReviews");
+                        assert likedReviewsList != null;
+                        holder.likeButton.setChecked(!likedReviewsList.isEmpty() && likedReviewsList.contains(review.getDocID()));
+                    } else {
+                        Log.d(TAG, "Document does not exist.");
+                    }
+                } else {
+                    Log.d(TAG, "Failed to pull from database.", task.getException());
+                }
+            }
+        });
+
+        // Edit button visibility handling
         if (mCtx instanceof MainActivity)
             holder.companyName.setVisibility(View.VISIBLE);
         else
@@ -94,6 +117,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         else
             holder.editButton.setVisibility(View.GONE);
 
+        // Review card click handling
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +144,76 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         });
 
         // Like button toggle handling
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //if like button is toggled on, update number of likes in review document and add review ID to user document
+                if (holder.likeButton.isChecked()) {
+                    db.collection("Reviews").document((Objects.requireNonNull(review.getDocID())))
+                            .update("numOfLikes", FieldValue.increment(1))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(view.getContext(), "You liked this review!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(view.getContext(), "Error, this review no longer exists!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    db.collection("Users").document((Objects.requireNonNull(auth.getCurrentUser()).getUid()))
+                            .update("likedReviews", FieldValue.arrayUnion(review.getDocID()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "Liked review added to user's likeReviews field");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "Error, liked review NOT added to user's likeReviews field");
+                                }
+                            });
+                    review.setNumOfLikes(review.getNumOfLikes() + 1);
+                }
+                //if like button is toggled off, update number of likes in review document and remove review ID from user document
+                else {
+                    db.collection("Reviews").document(Objects.requireNonNull(review.getDocID()))
+                            .update("numOfLikes", FieldValue.increment(-1))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(view.getContext(), "You unliked this review!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(view.getContext(), "Error, this review no longer exists!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    db.collection("Users").document((Objects.requireNonNull(auth.getCurrentUser()).getUid()))
+                            .update("likedReviews", FieldValue.arrayRemove(review.getDocID()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "Liked review removed from user's likeReviews field");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "Error, liked review NOT removed from user's likeReviews field");
+                                }
+                            });
+                    review.setNumOfLikes(review.getNumOfLikes() - 1);
+                }
+                holder.numOfLikesLabel.setText("" + review.getNumOfLikes());
+            }
+        });
     }
 
     @Override
@@ -131,6 +225,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions, editButton, companyName, numOfLikesLabel;
         LinearLayout subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
+        ToggleButton likeButton;
         onEditListener onEditListener;
 
         public ReviewViewHolder(View itemView, onEditListener onEditListener) {
@@ -149,6 +244,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
             companyName = itemView.findViewById(R.id.reviewCompanyLabel);
             numOfLikesLabel = itemView.findViewById(R.id.numOfLikesLabel);
+            likeButton = itemView.findViewById(R.id.heartLikeButton);
             this.onEditListener = onEditListener;
             editButton.setOnClickListener(this);
         }
