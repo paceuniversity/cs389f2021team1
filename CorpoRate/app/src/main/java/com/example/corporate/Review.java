@@ -3,15 +3,14 @@ package com.example.corporate;
 public class Review {
     private String company, UID, reviewText, docID;
     private double avgEnvironmental, avgEthics, avgLeadership, avgRating, avgWageEquality,avgWorkingConditions;
-    private int numOfDislikes, numOfLikes;
+    private int  numOfLikes;
 
     public Review(){
-
     }
 
     public Review(String company, String UID, String reviewText, double avgEnvironmental, double avgEthics,
                   double avgLeadership, double avgRating, double avgWageEquality,double avgWorkingConditions,
-                  int numOfDislikes, int numOfLikes) {
+                  int numOfLikes) {
         this.company = company;
         this.UID = UID;
         this.reviewText = reviewText;
@@ -21,7 +20,6 @@ public class Review {
         this.avgRating = avgRating;
         this.avgWageEquality = avgWageEquality;
         this.avgWorkingConditions = avgWorkingConditions;
-        this.numOfDislikes = numOfDislikes;
         this.numOfLikes = numOfLikes;
     }
 
@@ -91,14 +89,6 @@ public class Review {
 
     public void setAvgWorkingConditions(double avgWorkingConditions) {
         this.avgWorkingConditions = avgWorkingConditions;
-    }
-
-    public int getNumOfDislikes() {
-        return numOfDislikes;
-    }
-
-    public void setNumOfDislikes(int numOfDislikes) {
-        this.numOfDislikes = numOfDislikes;
     }
 
     public int getNumOfLikes() {
