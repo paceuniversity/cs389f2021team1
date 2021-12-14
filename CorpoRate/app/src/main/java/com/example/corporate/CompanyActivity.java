@@ -1,7 +1,6 @@
 package com.example.corporate;
 
 import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -30,7 +28,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,7 +40,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -136,7 +132,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         navigationView.setCheckedItem(R.id.nav_home);
-
+      
         // Show all Reviews
         Task<QuerySnapshot> dataQ;
         {
@@ -274,7 +270,6 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
 
                 newReview.put("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid());
                 newReview.put("company", cName);
-                newReview.put("numOfDislikes", 0);
                 newReview.put("numOfLikes", 0);
                 newReview.put("reviewText", addDescription.getText().toString());
 
@@ -387,10 +382,8 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                 }
                 overallRating /= 5.0;
                 editedReview.put("avgRating", overallRating);
-
                 editedReview.put("UID", thisReview.getUID());
                 editedReview.put("company", thisReview.getCompany());
-                editedReview.put("numOfDislikes", thisReview.getNumOfDislikes());
                 editedReview.put("numOfLikes", thisReview.getNumOfLikes());
 
                 editedReview.put("reviewText", addDescription.getText().toString());

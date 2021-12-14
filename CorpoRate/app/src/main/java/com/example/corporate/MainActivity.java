@@ -12,8 +12,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -21,10 +23,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -307,12 +311,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 overallRating /= 5.0;
                 editedReview.put("avgRating", overallRating);
-
                 editedReview.put("UID", thisReview.getUID());
                 editedReview.put("company", thisReview.getCompany());
-                editedReview.put("numOfDislikes", thisReview.getNumOfDislikes());
                 editedReview.put("numOfLikes", thisReview.getNumOfLikes());
-
                 editedReview.put("reviewText", addDescription.getText().toString());
 
                 double finalOverallRating = overallRating;

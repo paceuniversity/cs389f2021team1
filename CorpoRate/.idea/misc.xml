@@ -13,6 +13,7 @@
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.346875" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/layout_hs.xml" value="0.2796296296296296" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/scrollbar.xml" value="0.5703125" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/drawable/toggle_selector.xml" value="0.2351851851851852" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/about_slide_layout.xml" value="0.34629629629629627" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_about.xml" value="0.33177083333333335" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_company.xml" value="0.5456410256410257" />
@@ -22,10 +23,11 @@
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_register.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_search.xml" value="0.32088285229202035" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/activity_splash.xml" value="0.3314814814814815" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/add_review_popup.xml" value="0.31979166666666664" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/company_card.xml" value="0.5456410256410257" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/company_layout.xml" value="0.22" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/header.xml" value="0.35" />
-        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/review_card.xml" value="0.5456410256410257" />
+        <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/review_card.xml" value="0.31614583333333335" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/layout/toolbar.xml" value="0.35" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/menu/nav_drawer.xml" value="0.1" />
         <entry key="..\:/Users/Prince Paul/Desktop/CorpoRate/cs389f2021team1/CorpoRate/app/src/main/res/menu/topbar.xml" value="0.3302083333333333" />
