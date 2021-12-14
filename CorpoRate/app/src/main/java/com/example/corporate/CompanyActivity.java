@@ -67,8 +67,6 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
     private RecyclerView reviewView;
     private List<Review> reviewList;
     private String cName;
-    private String cLocation;
-    private String cLogo;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private Button cancelAddReview;
@@ -131,7 +129,6 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
-        navigationView.setCheckedItem(R.id.nav_home);
       
         // Show all Reviews
         Task<QuerySnapshot> dataQ;

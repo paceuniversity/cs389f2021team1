@@ -26,7 +26,7 @@
                     android:id="@+id/reviewUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sean Cesario"
+                    android:text=""
                     android:layout_gravity="center"
                     android:textColor="@color/MatteCharcoal"
                     android:textSize="20sp"
@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingEnd="3dp"
-                        android:text="0"
+                        android:text=""
                         android:textColor="@color/MatteCharcoal"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -186,7 +186,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:maxLines="4"
-                android:text="Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities.Amazon disguised it's philanthropy through unwanted marketing. Amazon has a program called amazon smile, where part of your purchase can be donated to a charity of your choice if you opt into the program. However, Amazon only allows you to participate in donating to these charities if you have your notifications turned on, which allows Amazon to send marketing messages--a suggestive sales technique. If you turn off notifications, amazon turns off your ability to donate part of your purchase to charities."
+                android:text=""
                 android:textColor="@color/MatteCharcoal"
                 android:textSize="12sp" />
 
@@ -202,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:text="Company"
+                    android:text=""
                     android:textColor="@color/MatteCharcoal"
                     android:textSize="12sp"
                     android:textStyle="bold"
