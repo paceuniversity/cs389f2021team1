@@ -208,6 +208,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        myReviewList.removeAll(myReviewList);
+        Task<QuerySnapshot> dataQ;
+        {
+            dataQ = db.collection("Reviews").whereEqualTo("UID", Objects.requireNonNull(auth.getCurrentUser()).getUid()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for (DocumentSnapshot d : list) {
+                            Review r = d.toObject(Review.class);
+                            assert r != null;
+                            r.setDocID(d.getId());
+                            myReviewList.add(r);
+                        }
+                        reviewAdapter.notifyDataSetChanged();
+                    } else{
+                        Log.d(TAG, "Empty");
+                    }
+                }
+            });
+        }
+    }
+
     /** Called when the user taps the Search button */
     public void openSearchResults(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
