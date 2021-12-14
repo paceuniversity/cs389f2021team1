@@ -94,7 +94,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         else
             holder.editButton.setVisibility(View.GONE);
 
-        holder.reviewCard.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (holder.subRatingsTop.getVisibility() == View.GONE) {
@@ -131,7 +131,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         TextView username, reviewDesc, avgEnvironmental, avgEthics, avgLeadership, avgWageEquality, avgWorkingConditions, editButton, companyName, numOfLikesLabel;
         LinearLayout subRatingsTop, subRatingsBottom;
         RatingBar avgRatingBar;
-        MaterialCardView reviewCard;
         onEditListener onEditListener;
 
         public ReviewViewHolder(View itemView, onEditListener onEditListener) {
@@ -150,7 +149,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             subRatingsBottom = itemView.findViewById(R.id.reviewSubRatingsBottom);
             companyName = itemView.findViewById(R.id.reviewCompanyLabel);
             numOfLikesLabel = itemView.findViewById(R.id.numOfLikesLabel);
-            reviewCard = itemView.findViewById(R.id.entireReviewCard);
             this.onEditListener = onEditListener;
             editButton.setOnClickListener(this);
         }
@@ -159,6 +157,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         public void onClick(View v) {
             onEditListener.onEditClick(getAbsoluteAdapterPosition());
         }
+
     }
 
     public interface onEditListener {
