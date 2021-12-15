@@ -254,7 +254,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
             @Override
             public void onClick(View v) {
                 if (addEnvironmental.getRating() == 0 || addEthics.getRating() == 0 || addLeadership.getRating() == 0 || addWageEquality.getRating() == 0 || addWorkingConditions.getRating() == 0)
-                    Toast.makeText(CompanyActivity.this, "Ratings cannot be 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompanyActivity.this, "Rating(s) cannot be zero stars!", Toast.LENGTH_SHORT).show();
                 else if (TextUtils.isEmpty(addDescription.getText()))
                     addDescription.setError("Enter a few lines about " + cName);
                 else {
@@ -374,7 +374,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
             @Override
             public void onClick(View v) {
                 if (addEnvironmental.getRating() == 0 || addEthics.getRating() == 0 || addLeadership.getRating() == 0 || addWageEquality.getRating() == 0 || addWorkingConditions.getRating() == 0)
-                    Toast.makeText(CompanyActivity.this, "Ratings cannot be 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompanyActivity.this, "Rating(s) cannot be zero stars!", Toast.LENGTH_SHORT).show();
                 else if (TextUtils.isEmpty(addDescription.getText()))
                     addDescription.setError("Enter a few lines about " + cName);
                 else {
@@ -509,6 +509,13 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                         cAvgWageEquality /= list.size();
                         cAvgWorkingConditions /= list.size();
                         cTotalReviews = list.size();
+
+                        cAvgRating = (double)Math.round(cAvgRating * 100) / 100;
+                        cAvgEthics = (double)Math.round(cAvgEthics * 100) / 100;
+                        cAvgEnvironmental = (double)Math.round(cAvgEnvironmental * 100) / 100;
+                        cAvgLeadership = (double)Math.round(cAvgLeadership * 100) / 100;
+                        cAvgWageEquality = (double)Math.round(cAvgWageEquality * 100) / 100;
+                        cAvgWorkingConditions = (double)Math.round(cAvgWorkingConditions * 100) / 100;
 
                         db.collection("Companies").document(cName).update("avgRating", cAvgRating);
                         db.collection("Companies").document(cName).update("avgEthics", cAvgEthics);
