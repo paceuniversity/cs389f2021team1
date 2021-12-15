@@ -1,4 +1,4 @@
-[![](https://i.imgur.com/G3GdpjZ.png)](https://github.com/paceuniversity/cs389f2021team1)
+[![](https://i.imgur.com/8eWsb6x.png)](https://github.com/paceuniversity/cs389f2021team1)
 
 # Team 1
 
