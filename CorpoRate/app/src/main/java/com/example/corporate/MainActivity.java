@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -204,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             r.setDocID(d.getId());
                             myReviewList.add(r);
                         }
+                        Collections.sort(myReviewList, new Review());
                         reviewAdapter.notifyDataSetChanged();
                     } else{
                         Log.d(TAG, "Empty");

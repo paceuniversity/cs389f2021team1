@@ -1,6 +1,8 @@
 package com.example.corporate;
 
-public class Review {
+import java.util.Comparator;
+
+public class Review implements Comparator<Review> {
     private String company, UID, reviewText, docID;
     private double avgEnvironmental, avgEthics, avgLeadership, avgRating, avgWageEquality,avgWorkingConditions;
     private int  numOfLikes;
@@ -105,5 +107,10 @@ public class Review {
 
     public void setDocID(String docID) {
         this.docID = docID;
+    }
+
+    @Override
+    public int compare(Review o1, Review o2) {
+        return Integer.compare(o2.getNumOfLikes(), o1.getNumOfLikes());
     }
 }
