@@ -60,7 +60,7 @@
 * [**Sprint Retrospective**](https://docs.google.com/document/d/1IXkBoMQr4Ise_Eac5XAxuj34Q_i_5UbdIlVjhv8Pf8g/edit?usp=sharing)
 
 # Final Presentation
-* **Presentation**
+* [**Presentation**](https://docs.google.com/presentation/d/1Ayb61J3xaCl6vrLwqlAG75WupZ7AEiz2xYdMyTkOlpc/edit?usp=sharing)
 
 * [**Poster**](https://i.imgur.com/MhIAMbo.png)
 
