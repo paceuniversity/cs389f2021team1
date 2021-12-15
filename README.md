@@ -62,7 +62,7 @@
 # Final Presentation
 **Presentation**
 
-**Poster**
+* [**Poster**](https://i.imgur.com/MhIAMbo.png)
 
 # Process Description
 
