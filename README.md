@@ -1,4 +1,4 @@
-![banner](https://user-images.githubusercontent.com/71793659/139903171-2b696112-7411-4d6e-8107-a0d729e54362.png)
+[![](https://i.imgur.com/G3GdpjZ.png)](https://github.com/paceuniversity/cs389f2021team1)
 
 # Team 1
 
@@ -17,21 +17,21 @@
 
 **App Description:** Our app aims to hold companies responsible and ensure people have a transparent view of how they operate. Users can anonymously rate companies based on various metrics (like environmental sustainability and working conditions) and give a brief synopsis of their experience with them. Then users can look at average ratings and reviews to gain insight into the culture of a company and decide if it's one they wish to work with or support.
 
-[**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit?usp=sharing&ouid=111976597639411429920&rtpof=true&sd=true)
+* [**Idea Proposal**](https://docs.google.com/document/d/1Q60016dLtE1cX8MSprkpBzPXLMJKwqqK/edit?usp=sharing&ouid=111976597639411429920&rtpof=true&sd=true)
 
-[**Calendar**](https://calendar.google.com/calendar/u/0/r?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
+* [**Calendar**](https://calendar.google.com/calendar/u/0/r?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)
 
 # Requirements
 
-[**Requirements Discovery**](https://docs.google.com/document/d/1ZkMEXjgS4QJ2PgLKpekJ_ExRc0QpD8t8e3S7l4tIIyQ/edit?usp=sharing)
+* [**Requirements Discovery**](https://docs.google.com/document/d/1ZkMEXjgS4QJ2PgLKpekJ_ExRc0QpD8t8e3S7l4tIIyQ/edit?usp=sharing)
 
-[**Product Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit?usp=sharing)
+* [**Product Backlog**](https://docs.google.com/spreadsheets/d/1pNOxIMiODJXAN8ovq0syJlf6_fSMgNEyWP71J29YIzo/edit?usp=sharing)
 
-[**Requirements Validation**](https://docs.google.com/spreadsheets/d/1ZTlLndmRvSVqlv5ohX0Do5avGZMg_DbO2lxBTQT2x6Q/edit?usp=sharing)
+* [**Requirements Validation**](https://docs.google.com/spreadsheets/d/1ZTlLndmRvSVqlv5ohX0Do5avGZMg_DbO2lxBTQT2x6Q/edit?usp=sharing)
 
 # Architecture & Design
 
-[**Architecture & Design Diagrams**](https://docs.google.com/document/d/1LxBJPjtQ2-6nTjlZCX6ioACTD6lZC4W1dkg3Y_D82IY/edit?usp=sharing)
+* [**Architecture & Design Diagrams**](https://docs.google.com/document/d/1LxBJPjtQ2-6nTjlZCX6ioACTD6lZC4W1dkg3Y_D82IY/edit?usp=sharing)
 
 # Content
 
@@ -60,7 +60,7 @@
 * [**Sprint Retrospective**](https://docs.google.com/document/d/1IXkBoMQr4Ise_Eac5XAxuj34Q_i_5UbdIlVjhv8Pf8g/edit?usp=sharing)
 
 # Final Presentation
-**Presentation**
+* **Presentation**
 
 * [**Poster**](https://i.imgur.com/MhIAMbo.png)
 
