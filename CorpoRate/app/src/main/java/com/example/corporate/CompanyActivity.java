@@ -130,33 +130,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
-      
-        // Show all Reviews
-        Task<QuerySnapshot> dataQ;
-        {
-            dataQ = db.collection("Reviews").whereEqualTo("company", cName).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @SuppressLint({"NotifyDataSetChanged", "SetTextI18n"})
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    if (!queryDocumentSnapshots.isEmpty()) {
-                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                        totalReviews.setText(list.size() + "");
-                        for (DocumentSnapshot d : list) {
-                            Review r = d.toObject(Review.class);
-                            assert r != null;
-                            r.setDocID(d.getId());
-                            reviewList.add(r);
-                        }
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Log.d(TAG, "Empty");
-                    }
-                }
-            });
-        }
-        refreshCompanyRatings();
     }
-
 
     @Override
     public void onStart() {
@@ -181,9 +155,8 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
     }
 
     @Override
-    public void onRestart()
-    {
-        super.onRestart();
+    public void onResume() {
+        super.onResume();
         reviewList.removeAll(reviewList);
         Task<QuerySnapshot> dataQ;
         {
