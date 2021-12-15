@@ -42,6 +42,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +174,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                             r.setDocID(d.getId());
                             reviewList.add(r);
                         }
+                        Collections.sort(reviewList, new Review());
                         adapter.notifyDataSetChanged();
                     } else {
                         Log.d(TAG, "Empty");
@@ -298,6 +300,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                                     assert r != null;
                                                     r.setDocID(newReviewDoc.getId());
                                                     reviewList.add(r);
+                                                    Collections.sort(reviewList, new Review());
                                                     db.collection("Users").document(Objects.requireNonNull(auth.getCurrentUser()).getUid()).update("numOfReviews", FieldValue.increment(1));
                                                     refreshCompanyRatings();
                                                     adapter.notifyDataSetChanged();
@@ -447,6 +450,7 @@ public class CompanyActivity extends AppCompatActivity implements ReviewAdapter.
                                         Toast.makeText(v.getContext(), "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
                                         reviewList.remove(position);
+                                        Collections.sort(reviewList, new Review());
                                         refreshCompanyRatings();
                                         adapter.notifyDataSetChanged();
                                         dialog.dismiss();
