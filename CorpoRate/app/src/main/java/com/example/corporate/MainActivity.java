@@ -37,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -364,6 +365,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     @Override
                                     public void onSuccess(Void unused) {
                                         db.collection("Users").document(Objects.requireNonNull(auth.getCurrentUser()).getUid()).update("numOfReviews", FieldValue.increment(-1));
+                                        db.collection("Users").whereArrayContains("likedReviews", thisReview.getDocID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                                        document.getReference().update("likedReviews", FieldValue.arrayRemove(thisReview.getDocID()));
+                                                    }
+                                                } else {
+                                                    Log.d(TAG, "Error updating all users' likedReviews field");
+                                                }
+                                            }
+                                        });
                                         Toast.makeText(v.getContext(), "Review Deleted!", Toast.LENGTH_SHORT).show();
                                         Log.d(TAG, "Review deleted");
                                         refreshCompanyRatings(position);
