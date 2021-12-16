@@ -24,6 +24,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -152,9 +154,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                     db.collection("Reviews").document((Objects.requireNonNull(review.getDocID())))
                             .update("numOfLikes", FieldValue.increment(1))
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @SuppressLint("NotifyDataSetChanged")
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(view.getContext(), "You liked this review!", Toast.LENGTH_SHORT).show();
+                                    Collections.sort(reviewList, new Review());
+                                    ReviewAdapter.this.notifyDataSetChanged();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -184,9 +189,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
                     db.collection("Reviews").document(Objects.requireNonNull(review.getDocID()))
                             .update("numOfLikes", FieldValue.increment(-1))
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @SuppressLint("NotifyDataSetChanged")
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(view.getContext(), "You unliked this review!", Toast.LENGTH_SHORT).show();
+                                    Collections.sort(reviewList, new Review());
+                                    ReviewAdapter.this.notifyDataSetChanged();
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
